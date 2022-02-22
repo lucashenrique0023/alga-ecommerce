@@ -1,9 +1,7 @@
 package lab.lhss.ecommerce.startingwithjpa;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import lab.lhss.ecommerce.model.Product;
+import org.junit.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -34,5 +32,25 @@ public class FindRecordsTest {
     @After
     public void tearDown() {
         entityManager.close();
+    }
+
+    @Test
+    public void searchById() {
+        Product product = entityManager.find(Product.class, 1);
+//        Product product = entityManager.getReference(Product.class, 1);
+
+        Assert.assertNotNull(product);
+        Assert.assertEquals("Kindle", product.getName());
+    }
+
+    @Test
+    public void updateReference() {
+        Product product = entityManager.find(Product.class, 1);
+        product.setName("Micro");
+        System.out.println(product.getName());
+        entityManager.refresh(product);
+        System.out.println("Refresh!");
+        System.out.println(product.getName());
+        Assert.assertEquals("Kindle", product.getName());
     }
 }
