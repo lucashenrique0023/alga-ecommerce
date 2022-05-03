@@ -53,4 +53,25 @@ public class TransactionOperationTests extends EntityManagerTest {
 
         Assert.assertNotNull(productVerify);
     }
+
+    @Test
+    public void removeObject() {
+        // Product product = new Product();
+        // product.setId(3);
+
+        // Makes object managed, keep in entity manager memory.
+        Product product = entityManager.find(Product.class,3);
+
+        entityManager.getTransaction().begin();
+
+        // java.lang.IllegalArgumentException: Removing a detached instance lab.lhss.ecommerce.model.Product#3
+        // If the product does not exists on Databse JPA ignores it, but in this case are throwing IllegalArgumentException
+        // To remove, JPA needs to know the existence of the object, we need to make it managed using find().
+        entityManager.remove(product);
+
+        entityManager.getTransaction().commit();
+
+        Product productVerify = entityManager.find(Product.class, 3);
+        Assert.assertNull(productVerify);
+    }
 }
