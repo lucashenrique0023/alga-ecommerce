@@ -74,4 +74,25 @@ public class TransactionOperationTests extends EntityManagerTest {
         Product productVerify = entityManager.find(Product.class, 3);
         Assert.assertNull(productVerify);
     }
+
+    @Test
+    public void updateObject() {
+        // All Attributes must be fulfill, otherwise attributes not set gonna be null.
+        // If Object ID not exists on DB, a Insert gonna be executed
+        Product product = new Product();
+        product.setId(10);
+        product.setName("Kindle Paperwhite");
+        product.setDescription("Conheca o novo Kindle");
+        product.setPrice(new BigDecimal(599));
+
+        entityManager.getTransaction().begin();
+        entityManager.merge(product);
+        entityManager.getTransaction().commit();
+
+        entityManager.clear();
+
+        Product productVerify = entityManager.find(Product.class, product.getId());
+        Assert.assertNotNull(productVerify);
+        Assert.assertEquals("Kindle Paperwhite", productVerify.getName());
+    }
 }
