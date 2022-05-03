@@ -1,38 +1,12 @@
 package lab.lhss.ecommerce.startingwithjpa;
 
+import lab.lhss.ecommerce.EntityManagerTest;
 import lab.lhss.ecommerce.model.Product;
-import org.junit.*;
+import org.junit.Assert;
+import org.junit.Test;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+public class FindRecordsTest extends EntityManagerTest {
 
-public class FindRecordsTest {
-
-    private static EntityManagerFactory entityManagerFactory;
-
-    private static EntityManager entityManager;
-
-    @BeforeClass
-    public static void setUpBeforeClass() {
-        entityManagerFactory = Persistence
-                .createEntityManagerFactory("Ecommerce-PU");
-    }
-
-    @AfterClass
-    public static void tearDownAfterClass() {
-        entityManagerFactory.close();
-    }
-
-    @Before
-    public void setUp() {
-        entityManager = entityManagerFactory.createEntityManager();
-    }
-
-    @After
-    public void tearDown() {
-        entityManager.close();
-    }
 
     @Test
     public void searchById() {
