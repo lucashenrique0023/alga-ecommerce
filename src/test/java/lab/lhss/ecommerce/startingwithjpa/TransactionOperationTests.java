@@ -97,6 +97,24 @@ public class TransactionOperationTests extends EntityManagerTest {
     }
 
     @Test
+    public void insertObjectWithMerge() {
+        Product product = new Product();
+        product.setId(4);
+        product.setName("Headset");
+        product.setDescription("Best Sound Quality");
+        product.setPrice(new BigDecimal(1000));
+
+        entityManager.getTransaction().begin();
+        entityManager.merge(product);
+        entityManager.getTransaction().commit();
+
+        entityManager.clear();
+        Product productVerify = entityManager.find(Product.class, product.getId());
+
+        Assert.assertNotNull(productVerify);
+    }
+
+    @Test
     public void updateManagedObject() {
         Product product = entityManager.find(Product.class, 1);
 
