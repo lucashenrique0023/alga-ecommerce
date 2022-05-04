@@ -59,7 +59,7 @@ public class TransactionOperationTests extends EntityManagerTest {
         // Product product = new Product();
         // product.setId(3);
 
-        // Makes object managed, keep in entity manager memory.
+        // Makes object attached to avoid IllegalArgumentException when calls remove().
         Product product = entityManager.find(Product.class,3);
 
         entityManager.getTransaction().begin();
@@ -112,6 +112,42 @@ public class TransactionOperationTests extends EntityManagerTest {
         Product productVerify = entityManager.find(Product.class, product.getId());
 
         Assert.assertNotNull(productVerify);
+    }
+
+    @Test
+    public void showDifferencePersistAndMerge() {
+        Product productPersist = new Product();
+        productPersist.setId(5);
+        productPersist.setName("Smartphone One Plus");
+        productPersist.setDescription("The best processor!");
+        productPersist.setPrice(new BigDecimal(2000));
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(productPersist); // Saves this instance on entityManager
+        productPersist.setName("Smartphone Two Plus"); // Updates Instance ON DB
+        entityManager.getTransaction().commit();
+
+        entityManager.clear();
+        Product productVerifyPersist = entityManager.find(Product.class, productPersist.getId());
+
+        Assert.assertNotNull(productVerifyPersist);
+
+        Product productMerge = new Product();
+        productMerge.setId(6);
+        productMerge.setName("Notebook Dell");
+        productMerge.setDescription("The best for your company!");
+        productMerge.setPrice(new BigDecimal(2000));
+
+        entityManager.getTransaction().begin();
+        Product productMergeCopyInstance = entityManager.merge(productMerge); // Makes a copy of this instance and stores on entityManager
+        productMergeCopyInstance.setName("Notebook Dell 3"); // This line have effect!
+        productPersist.setName("Notebook Dell 2"); // Does not have any effect
+        entityManager.getTransaction().commit();
+
+        entityManager.clear();
+        Product productVerifyMerge = entityManager.find(Product.class, productMerge.getId());
+
+        Assert.assertNotNull(productVerifyMerge);
     }
 
     @Test
