@@ -60,7 +60,7 @@ public class ClientCrudTest extends EntityManagerTest {
         entityManager.remove(client);
         entityManager.getTransaction().commit();
 
-        entityManager.find(Client.class, 3L);
+        client = entityManager.find(Client.class, 3L);
 
         Assert.assertNull(client);
     }
