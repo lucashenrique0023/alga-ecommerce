@@ -6,18 +6,27 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Client {
+public class Order {
 
     @Id
     @EqualsAndHashCode.Include
-    private Long id;
+    private Integer id;
 
-    private String name;
+    private LocalDateTime orderDate;
 
-    private Gender gender;
+    private LocalDateTime conclusionDate;
+
+    private Integer invoiceId;
+
+    private BigDecimal total;
+
+    private OrderStatus status;
+
 }

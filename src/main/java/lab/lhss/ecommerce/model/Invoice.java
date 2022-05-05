@@ -6,18 +6,23 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.math.BigDecimal;
+import java.util.Date;
 
 @Entity
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Client {
+public class Invoice {
 
     @Id
     @EqualsAndHashCode.Include
-    private Long id;
+    private Integer id;
 
-    private String name;
+    private Integer orderId;
 
-    private Gender gender;
+    private String xml;
+
+    private Date emissionDate;
+
 }

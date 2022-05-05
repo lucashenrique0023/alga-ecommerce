@@ -11,13 +11,13 @@ import javax.persistence.Id;
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Client {
+public class Stock {
 
     @Id
     @EqualsAndHashCode.Include
     private Long id;
 
-    private String name;
+    private Integer productId;
 
-    private Gender gender;
+    private Integer amount;
 }
