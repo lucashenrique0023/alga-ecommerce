@@ -4,12 +4,12 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
 @Setter
+@Table(name = "credit_card")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class CreditCardPayment {
 
@@ -17,8 +17,10 @@ public class CreditCardPayment {
     @EqualsAndHashCode.Include
     private Integer id;
 
+    @Column(name = "order_id")
     private Integer orderId;
 
+    @Enumerated(EnumType.STRING)
     private PaymentStatus status;
 
     private String number;

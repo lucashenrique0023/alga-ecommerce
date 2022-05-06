@@ -4,14 +4,14 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @Setter
+@Table(name = "order")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Order {
 
@@ -27,6 +27,7 @@ public class Order {
 
     private BigDecimal total;
 
+    @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
 }
