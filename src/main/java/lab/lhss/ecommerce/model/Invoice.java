@@ -4,6 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -21,10 +22,12 @@ public class Invoice {
     @EqualsAndHashCode.Include
     private Integer id;
 
+    @Column(name = "order_id")
     private Integer orderId;
 
     private String xml;
 
+    @Column(name = "emission_date")
     private Date emissionDate;
 
 }

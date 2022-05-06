@@ -1,7 +1,7 @@
 package lab.lhss.ecommerce.startingwithjpa;
 
 import lab.lhss.ecommerce.EntityManagerTest;
-import lab.lhss.ecommerce.model.Product;
+import lab.lhss.ecommerce.model.item;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -12,7 +12,7 @@ public class TransactionOperationTests extends EntityManagerTest {
     @Test
     public void openAndCloseTransaction() {
 
-        Product product = new Product();
+        item item = new item();
 
         entityManager.getTransaction().begin();
 
@@ -25,17 +25,17 @@ public class TransactionOperationTests extends EntityManagerTest {
 
     @Test
     public void insertFirstObject() {
-        Product product = new Product();
-        product.setId(2);
-        product.setName("Camera Canon");
-        product.setDescription("The Best definition in your pictures");
-        product.setPrice(new BigDecimal(5000));
+        item item = new item();
+        item.setId(2);
+        item.setName("Camera Canon");
+        item.setDescription("The Best definition in your pictures");
+        item.setPrice(new BigDecimal(5000));
 
         entityManager.getTransaction().begin();
 
         // Saves the object on entity manager memory (becomes managed object)
         // This call could be after begin() and commit() methods
-        entityManager.persist(product);
+        entityManager.persist(item);
 
         //flush() Forces JPA to send everything on entityManager memory to database
         // commit() executes flush before
@@ -49,9 +49,9 @@ public class TransactionOperationTests extends EntityManagerTest {
         //entityManager = entityManagerFactory.createEntityManager();
 
         // Does create a select for this, catches from entity manager memory.
-        Product productVerify = entityManager.find(Product.class, product.getId());
+        item itemVerify = entityManager.find(item.class, item.getId());
 
-        Assert.assertNotNull(productVerify);
+        Assert.assertNotNull(itemVerify);
     }
 
     @Test
@@ -60,107 +60,107 @@ public class TransactionOperationTests extends EntityManagerTest {
         // product.setId(3);
 
         // Makes object attached to avoid IllegalArgumentException when calls remove().
-        Product product = entityManager.find(Product.class,3);
+        item item = entityManager.find(item.class,3);
 
         entityManager.getTransaction().begin();
 
         // java.lang.IllegalArgumentException: Removing a detached instance lab.lhss.ecommerce.model.Product#3
         // If the product does not exists on Databse JPA ignores it, but in this case are throwing IllegalArgumentException
         // To remove, JPA needs to know the existence of the object, we need to make it managed using find().
-        entityManager.remove(product);
+        entityManager.remove(item);
 
         entityManager.getTransaction().commit();
 
-        Product productVerify = entityManager.find(Product.class, 3);
-        Assert.assertNull(productVerify);
+        item itemVerify = entityManager.find(item.class, 3);
+        Assert.assertNull(itemVerify);
     }
 
     @Test
     public void updateObject() {
         // All Attributes must be fulfill, otherwise attributes not set gonna be null.
         // If Object ID not exists on DB, a Insert gonna be executed
-        Product product = new Product();
-        product.setId(10);
-        product.setName("Kindle Paperwhite");
-        product.setDescription("Conheca o novo Kindle");
-        product.setPrice(new BigDecimal(599));
+        item item = new item();
+        item.setId(10);
+        item.setName("Kindle Paperwhite");
+        item.setDescription("Conheca o novo Kindle");
+        item.setPrice(new BigDecimal(599));
 
         entityManager.getTransaction().begin();
-        entityManager.merge(product);
+        entityManager.merge(item);
         entityManager.getTransaction().commit();
 
         entityManager.clear();
 
-        Product productVerify = entityManager.find(Product.class, product.getId());
-        Assert.assertNotNull(productVerify);
-        Assert.assertEquals("Kindle Paperwhite", productVerify.getName());
+        item itemVerify = entityManager.find(item.class, item.getId());
+        Assert.assertNotNull(itemVerify);
+        Assert.assertEquals("Kindle Paperwhite", itemVerify.getName());
     }
 
     @Test
     public void insertObjectWithMerge() {
-        Product product = new Product();
-        product.setId(4);
-        product.setName("Headset");
-        product.setDescription("Best Sound Quality");
-        product.setPrice(new BigDecimal(1000));
+        item item = new item();
+        item.setId(4);
+        item.setName("Headset");
+        item.setDescription("Best Sound Quality");
+        item.setPrice(new BigDecimal(1000));
 
         entityManager.getTransaction().begin();
-        entityManager.merge(product);
+        entityManager.merge(item);
         entityManager.getTransaction().commit();
 
         entityManager.clear();
-        Product productVerify = entityManager.find(Product.class, product.getId());
+        item itemVerify = entityManager.find(item.class, item.getId());
 
-        Assert.assertNotNull(productVerify);
+        Assert.assertNotNull(itemVerify);
     }
 
     @Test
     public void showDifferencePersistAndMerge() {
-        Product productPersist = new Product();
-        productPersist.setId(5);
-        productPersist.setName("Smartphone One Plus");
-        productPersist.setDescription("The best processor!");
-        productPersist.setPrice(new BigDecimal(2000));
+        item itemPersist = new item();
+        itemPersist.setId(5);
+        itemPersist.setName("Smartphone One Plus");
+        itemPersist.setDescription("The best processor!");
+        itemPersist.setPrice(new BigDecimal(2000));
 
         entityManager.getTransaction().begin();
-        entityManager.persist(productPersist); // Saves this instance on entityManager
-        productPersist.setName("Smartphone Two Plus"); // Updates Instance ON DB
+        entityManager.persist(itemPersist); // Saves this instance on entityManager
+        itemPersist.setName("Smartphone Two Plus"); // Updates Instance ON DB
         entityManager.getTransaction().commit();
 
         entityManager.clear();
-        Product productVerifyPersist = entityManager.find(Product.class, productPersist.getId());
+        item itemVerifyPersist = entityManager.find(item.class, itemPersist.getId());
 
-        Assert.assertNotNull(productVerifyPersist);
+        Assert.assertNotNull(itemVerifyPersist);
 
-        Product productMerge = new Product();
-        productMerge.setId(6);
-        productMerge.setName("Notebook Dell");
-        productMerge.setDescription("The best for your company!");
-        productMerge.setPrice(new BigDecimal(2000));
+        item itemMerge = new item();
+        itemMerge.setId(6);
+        itemMerge.setName("Notebook Dell");
+        itemMerge.setDescription("The best for your company!");
+        itemMerge.setPrice(new BigDecimal(2000));
 
         entityManager.getTransaction().begin();
-        Product productMergeCopyInstance = entityManager.merge(productMerge); // Makes a copy of this instance and stores on entityManager
-        productMergeCopyInstance.setName("Notebook Dell 3"); // This line have effect!
-        productPersist.setName("Notebook Dell 2"); // Does not have any effect
+        item itemMergeCopyInstance = entityManager.merge(itemMerge); // Makes a copy of this instance and stores on entityManager
+        itemMergeCopyInstance.setName("Notebook Dell 3"); // This line have effect!
+        itemPersist.setName("Notebook Dell 2"); // Does not have any effect
         entityManager.getTransaction().commit();
 
         entityManager.clear();
-        Product productVerifyMerge = entityManager.find(Product.class, productMerge.getId());
+        item itemVerifyMerge = entityManager.find(item.class, itemMerge.getId());
 
-        Assert.assertNotNull(productVerifyMerge);
+        Assert.assertNotNull(itemVerifyMerge);
     }
 
     @Test
     public void updateManagedObject() {
-        Product product = entityManager.find(Product.class, 1);
+        item item = entityManager.find(item.class, 1);
 
         entityManager.getTransaction().begin();
-        product.setName("Kindle Paperwhite 2 Gen");
+        item.setName("Kindle Paperwhite 2 Gen");
         entityManager.getTransaction().commit();
 
         entityManager.clear();
 
-        Product productVerify = entityManager.find(Product.class, product.getId());
-        Assert.assertEquals("Kindle Paperwhite 2 Gen", productVerify.getName());
+        item itemVerify = entityManager.find(item.class, item.getId());
+        Assert.assertEquals("Kindle Paperwhite 2 Gen", itemVerify.getName());
     }
 }

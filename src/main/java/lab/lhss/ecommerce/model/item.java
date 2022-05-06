@@ -12,9 +12,9 @@ import java.math.BigDecimal;
 @Entity
 @Getter
 @Setter
-@Table(name = "product")
+@Table(name = "item")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Product {
+public class item {
 
     @Id
     @EqualsAndHashCode.Include

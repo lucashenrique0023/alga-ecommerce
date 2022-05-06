@@ -1,7 +1,7 @@
 package lab.lhss.ecommerce.startingwithjpa;
 
 import lab.lhss.ecommerce.EntityManagerTest;
-import lab.lhss.ecommerce.model.Product;
+import lab.lhss.ecommerce.model.item;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -10,21 +10,21 @@ public class FindRecordsTest extends EntityManagerTest {
 
     @Test
     public void searchById() {
-        Product product = entityManager.find(Product.class, 1);
+        item item = entityManager.find(item.class, 1);
 //        Product product = entityManager.getReference(Product.class, 1);
 
-        Assert.assertNotNull(product);
-        Assert.assertEquals("Kindle", product.getName());
+        Assert.assertNotNull(item);
+        Assert.assertEquals("Kindle", item.getName());
     }
 
     @Test
     public void updateReference() {
-        Product product = entityManager.find(Product.class, 1);
-        product.setName("Micro");
-        System.out.println(product.getName());
-        entityManager.refresh(product);
+        item item = entityManager.find(item.class, 1);
+        item.setName("Micro");
+        System.out.println(item.getName());
+        entityManager.refresh(item);
         System.out.println("Refresh!");
-        System.out.println(product.getName());
-        Assert.assertEquals("Kindle", product.getName());
+        System.out.println(item.getName());
+        Assert.assertEquals("Kindle", item.getName());
     }
 }

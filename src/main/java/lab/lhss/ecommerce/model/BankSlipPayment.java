@@ -26,6 +26,7 @@ public class BankSlipPayment {
 
     private PaymentStatus status;
 
+    @Column(name = "bar_code")
     private String barCode;
 
 }

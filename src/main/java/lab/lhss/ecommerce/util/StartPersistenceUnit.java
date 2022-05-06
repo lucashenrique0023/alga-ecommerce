@@ -1,6 +1,6 @@
 package lab.lhss.ecommerce.util;
 
-import lab.lhss.ecommerce.model.Product;
+import lab.lhss.ecommerce.model.item;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -14,8 +14,8 @@ public class StartPersistenceUnit {
 
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-        Product product = entityManager.find(Product.class, 1);
-        System.out.println(product.getName());
+        item item = entityManager.find(item.class, 1);
+        System.out.println(item.getName());
 
         entityManager.close();
         entityManagerFactory.close();
