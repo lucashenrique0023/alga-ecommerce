@@ -16,7 +16,8 @@ import java.time.LocalDateTime;
 public class Category {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
+    @SequenceGenerator(name = "seq", sequenceName = "sequence_test", allocationSize = 5)
     @EqualsAndHashCode.Include
     private Integer id;
 

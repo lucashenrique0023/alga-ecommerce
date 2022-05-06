@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 @Setter
 @Table(name = "item")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class item {
+public class Item {
 
     @Id
     @EqualsAndHashCode.Include
