@@ -26,7 +26,6 @@ public class TransactionOperationTests extends EntityManagerTest {
     @Test
     public void insertFirstObject() {
         Item item = new Item();
-        item.setId(2);
         item.setName("Camera Canon");
         item.setDescription("The Best definition in your pictures");
         item.setPrice(new BigDecimal(5000));
@@ -60,7 +59,7 @@ public class TransactionOperationTests extends EntityManagerTest {
         // product.setId(3);
 
         // Makes object attached to avoid IllegalArgumentException when calls remove().
-        Item item = entityManager.find(Item.class,3);
+        Item item = entityManager.find(Item.class,2);
 
         entityManager.getTransaction().begin();
 
@@ -71,16 +70,14 @@ public class TransactionOperationTests extends EntityManagerTest {
 
         entityManager.getTransaction().commit();
 
-        Item itemVerify = entityManager.find(Item.class, 3);
+        Item itemVerify = entityManager.find(Item.class, 2);
         Assert.assertNull(itemVerify);
     }
 
     @Test
     public void updateObject() {
         // All Attributes must be fulfill, otherwise attributes not set gonna be null.
-        // If Object ID not exists on DB, a Insert gonna be executed
-        Item item = new Item();
-        item.setId(10);
+        Item item = entityManager.find(Item.class, 1);
         item.setName("Kindle Paperwhite");
         item.setDescription("Conheca o novo Kindle");
         item.setPrice(new BigDecimal(599));
@@ -99,17 +96,16 @@ public class TransactionOperationTests extends EntityManagerTest {
     @Test
     public void insertObjectWithMerge() {
         Item item = new Item();
-        item.setId(4);
         item.setName("Headset");
         item.setDescription("Best Sound Quality");
         item.setPrice(new BigDecimal(1000));
 
         entityManager.getTransaction().begin();
-        entityManager.merge(item);
+        Item savedItem = entityManager.merge(item);
         entityManager.getTransaction().commit();
 
         entityManager.clear();
-        Item itemVerify = entityManager.find(Item.class, item.getId());
+        Item itemVerify = entityManager.find(Item.class, savedItem.getId());
 
         Assert.assertNotNull(itemVerify);
     }
@@ -117,7 +113,6 @@ public class TransactionOperationTests extends EntityManagerTest {
     @Test
     public void showDifferencePersistAndMerge() {
         Item itemPersist = new Item();
-        itemPersist.setId(5);
         itemPersist.setName("Smartphone One Plus");
         itemPersist.setDescription("The best processor!");
         itemPersist.setPrice(new BigDecimal(2000));
@@ -133,7 +128,6 @@ public class TransactionOperationTests extends EntityManagerTest {
         Assert.assertNotNull(itemVerifyPersist);
 
         Item itemMerge = new Item();
-        itemMerge.setId(6);
         itemMerge.setName("Notebook Dell");
         itemMerge.setDescription("The best for your company!");
         itemMerge.setPrice(new BigDecimal(2000));
@@ -141,11 +135,11 @@ public class TransactionOperationTests extends EntityManagerTest {
         entityManager.getTransaction().begin();
         Item itemMergeCopyInstance = entityManager.merge(itemMerge); // Makes a copy of this instance and stores on entityManager
         itemMergeCopyInstance.setName("Notebook Dell 3"); // This line have effect!
-        itemPersist.setName("Notebook Dell 2"); // Does not have any effect
+        itemMerge.setName("Notebook Dell 2"); // Does not have any effect
         entityManager.getTransaction().commit();
 
         entityManager.clear();
-        Item itemVerifyMerge = entityManager.find(Item.class, itemMerge.getId());
+        Item itemVerifyMerge = entityManager.find(Item.class, itemMergeCopyInstance.getId());
 
         Assert.assertNotNull(itemVerifyMerge);
     }

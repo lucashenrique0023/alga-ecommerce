@@ -15,6 +15,7 @@ public class CreditCardPayment {
 
     @Id
     @EqualsAndHashCode.Include
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "order_id")

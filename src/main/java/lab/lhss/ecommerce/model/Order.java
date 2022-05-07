@@ -11,12 +11,13 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
-@Table(name = "product_order")
+@Table(name = "orderr")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Order {
 
     @Id
     @EqualsAndHashCode.Include
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "order_date")
