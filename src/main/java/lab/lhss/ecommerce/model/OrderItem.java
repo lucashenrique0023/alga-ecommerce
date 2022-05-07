@@ -20,14 +20,16 @@ public class OrderItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "order_id")
-    private Integer orderId;
+    @JoinColumn(name = "order_id")
+    @ManyToOne
+    private Order order;
 
-    @Column(name = "product_id")
-    private Integer productId;
+    @JoinColumn(name = "item_id")
+    @ManyToOne
+    private Item item;
 
-    @Column(name = "product_price")
-    private BigDecimal productPrice;
+    @Column(name = "item_price")
+    private BigDecimal itemPrice;
 
     private Integer amount;
 

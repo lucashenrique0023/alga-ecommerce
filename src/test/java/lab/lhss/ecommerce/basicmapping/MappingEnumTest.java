@@ -11,7 +11,6 @@ public class MappingEnumTest extends EntityManagerTest {
     @Test
     public void testEnum() {
         Client client = new Client();
-        client.setId(4L);
         client.setName("José Mineiro");
         client.setGender(Gender.MALE);
 
