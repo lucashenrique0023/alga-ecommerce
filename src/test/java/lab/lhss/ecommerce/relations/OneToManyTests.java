@@ -8,18 +8,19 @@ import org.junit.Test;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public class ManyToOneTests extends EntityManagerTest {
+public class OneToManyTests extends EntityManagerTest {
 
     @Test
-    public void veirifyRelation() {
+    public void veirifyRelationClientOrder() {
 
         Client client = entityManager.find(Client.class, 1);
 
         Order order = new Order();
         order.setStatus(OrderStatus.WAITING);
         order.setOrderDate(LocalDateTime.now());
-        order.setClient(client);
         order.setTotal(new BigDecimal(100));
+
+        order.setClient(client);
 
         entityManager.getTransaction().begin();
         entityManager.persist(order);
@@ -27,28 +28,28 @@ public class ManyToOneTests extends EntityManagerTest {
 
         entityManager.clear();
 
-        Order orderVerify = entityManager.find(Order.class, order.getId());
-        Assert.assertNotNull(orderVerify.getClient());
+        Client clientVerify = entityManager.find(Client.class, client.getId());
+        Assert.assertFalse(clientVerify.getOrders().isEmpty());
+
     }
 
     @Test
-    public void verifyRelationOrderItem() {
+    public void veirifyRelationOrderItemOrder() {
 
-        Client client = entityManager.find(Client.class,1);
-        Item item = entityManager.find(Item.class, 1);
+        Client client = entityManager.find(Client.class, 1);
 
         Order order = new Order();
-
         order.setStatus(OrderStatus.WAITING);
         order.setOrderDate(LocalDateTime.now());
-        order.setClient(client);
         order.setTotal(new BigDecimal(100));
+        order.setClient(client);
+
+        Item item = entityManager.find(Item.class, 1);
 
         OrderItem orderItem = new OrderItem();
         orderItem.setOrder(order);
         orderItem.setItem(item);
-        orderItem.setItemPrice(item.getPrice());
-        orderItem.setAmount(4);
+        orderItem.setAmount(5);
 
         entityManager.getTransaction().begin();
         entityManager.persist(order);
@@ -57,8 +58,8 @@ public class ManyToOneTests extends EntityManagerTest {
 
         entityManager.clear();
 
-        OrderItem orderItemVerify = entityManager.find(OrderItem.class, orderItem.getId());
-        Assert.assertNotNull(orderItemVerify.getOrder());
-        Assert.assertNotNull(orderItemVerify.getItem());
+        Order orderVerify = entityManager.find(Order.class, order.getId());
+        Assert.assertFalse(orderVerify.getItems().isEmpty());
+
     }
 }

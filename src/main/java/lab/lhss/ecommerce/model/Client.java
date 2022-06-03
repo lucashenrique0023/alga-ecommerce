@@ -19,8 +19,8 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    //@OneToMany(mappedBy = "client")
-    //private List<Order> orders;
+    @OneToMany(mappedBy = "client")
+    private List<Order> orders;
 
     private String name;
 
