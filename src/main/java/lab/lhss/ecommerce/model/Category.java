@@ -27,4 +27,7 @@ public class Category {
 
     @OneToMany(mappedBy = "upperCategory")
     private List<Category> lowerCategories;
+
+    @ManyToMany(mappedBy = "categories")
+    private List<Item> itens;
 }

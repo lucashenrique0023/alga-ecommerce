@@ -8,3 +8,5 @@ insert into Client (name) values ("Silva");
 insert into orderr (id, client_id, order_date, total, status) values (1, 1, sysdate(), 100.0, 'WAITING');
 
 insert into order_item (id, order_id, item_id, item_price, amount) values (1, 1, 1, 5.0, 2);
+
+insert into category (id, name) values (1, "Electronics");
