@@ -21,6 +21,9 @@ public class Invoice {
 
     @OneToOne
     @JoinColumn(name = "order_id")
+//    @JoinTable(name = "invoice_order",
+//            joinColumns = @JoinColumn(name = "invoice_id", unique = true),
+//            inverseJoinColumns = @JoinColumn(name = "order_id", unique = true))
     private Order order;
 
     private String xml;
