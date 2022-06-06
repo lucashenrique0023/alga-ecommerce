@@ -42,6 +42,12 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
+    @OneToOne(mappedBy = "order")
+    private CreditCardPayment payment;
+
+    @OneToOne(mappedBy = "order")
+    private Invoice invoice;
+
     @Embedded
     private Address address;
 
