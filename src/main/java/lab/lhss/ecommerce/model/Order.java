@@ -21,7 +21,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "client_id")
     private Client client;
 
@@ -33,9 +33,6 @@ public class Order {
 
     @Column(name = "conclusion_date")
     private LocalDateTime conclusionDate;
-
-    @Column(name = "invoice_id")
-    private Integer invoiceId;
 
     private BigDecimal total;
 

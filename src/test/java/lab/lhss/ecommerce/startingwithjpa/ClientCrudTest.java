@@ -27,7 +27,7 @@ public class ClientCrudTest extends EntityManagerTest {
     @Test
     public void findClient() {
 
-        Client client = entityManager.find(Client.class, 1L);
+        Client client = entityManager.find(Client.class, 1);
 
         Assert.assertNotNull(client);
         Assert.assertEquals("Lucas", client.getName());
@@ -36,7 +36,7 @@ public class ClientCrudTest extends EntityManagerTest {
     @Test
     public void updateClient() {
 
-        Client client = entityManager.find(Client.class, 2L);
+        Client client = entityManager.find(Client.class, 2);
 
         entityManager.getTransaction().begin();
         client.setName("Souza");
@@ -45,7 +45,7 @@ public class ClientCrudTest extends EntityManagerTest {
 
         entityManager.clear();
 
-        Client clientUpdated = entityManager.find(Client.class, 2L);
+        Client clientUpdated = entityManager.find(Client.class, 2);
         Assert.assertNotNull(clientUpdated);
         Assert.assertEquals("Souza", clientUpdated.getName());
     }
@@ -53,13 +53,13 @@ public class ClientCrudTest extends EntityManagerTest {
     @Test
     public void removeClient() {
 
-        Client client = entityManager.find(Client.class, 3L);
+        Client client = entityManager.find(Client.class, 3);
 
         entityManager.getTransaction().begin();
         entityManager.remove(client);
         entityManager.getTransaction().commit();
 
-        client = entityManager.find(Client.class, 3L);
+        client = entityManager.find(Client.class, 3);
 
         Assert.assertNull(client);
     }

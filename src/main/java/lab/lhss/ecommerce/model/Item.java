@@ -31,4 +31,7 @@ public class Item {
             joinColumns = @JoinColumn(name = "item_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     private List<Category> categories;
+
+    @OneToOne(mappedBy = "item")
+    private Inventory inventory;
 }

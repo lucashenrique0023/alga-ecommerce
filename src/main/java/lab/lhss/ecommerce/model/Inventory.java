@@ -9,17 +9,18 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@Table(name = "stock")
+@Table(name = "inventory")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Stock {
+public class Inventory {
 
     @Id
     @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "product_id")
-    private Integer productId;
+    @OneToOne(optional = false)
+    @JoinColumn(name = "item_id")
+    private Item item;
 
     private Integer amount;
 }

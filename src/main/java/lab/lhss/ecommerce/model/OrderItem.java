@@ -20,12 +20,12 @@ public class OrderItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @ManyToOne(optional = false)
     @JoinColumn(name = "order_id")
-    @ManyToOne
     private Order order;
 
+    @ManyToOne(optional = false)
     @JoinColumn(name = "item_id")
-    @ManyToOne
     private Item item;
 
     @Column(name = "item_price")
