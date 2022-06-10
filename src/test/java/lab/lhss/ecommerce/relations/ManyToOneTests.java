@@ -17,7 +17,7 @@ public class ManyToOneTests extends EntityManagerTest {
 
         Order order = new Order();
         order.setStatus(OrderStatus.WAITING);
-        order.setOrderDate(LocalDateTime.now());
+        order.setCreateDate(LocalDateTime.now());
         order.setClient(client);
         order.setTotal(new BigDecimal(100));
 
@@ -40,7 +40,7 @@ public class ManyToOneTests extends EntityManagerTest {
         Order order = new Order();
 
         order.setStatus(OrderStatus.WAITING);
-        order.setOrderDate(LocalDateTime.now());
+        order.setCreateDate(LocalDateTime.now());
         order.setClient(client);
         order.setTotal(new BigDecimal(100));
 

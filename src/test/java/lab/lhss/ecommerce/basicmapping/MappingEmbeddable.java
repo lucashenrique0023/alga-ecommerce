@@ -24,7 +24,7 @@ public class MappingEmbeddable extends EntityManagerTest {
 
         Order order = new Order();
         order.setId(1);
-        order.setOrderDate(LocalDateTime.now());
+        order.setCreateDate(LocalDateTime.now());
         order.setStatus(OrderStatus.WAITING);
         order.setTotal(new BigDecimal(1000));
         order.setAddress(address);
