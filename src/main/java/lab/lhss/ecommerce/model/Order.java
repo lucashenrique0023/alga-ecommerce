@@ -31,10 +31,10 @@ public class Order {
     @OneToMany(mappedBy = "order")
     private List<OrderItem> items;
 
-    @Column(name = "order_date")
+    @Column(name = "created_date", updatable = false)
     private LocalDateTime createDate;
 
-    @Column(name = "last_modify_date")
+    @Column(name = "last_modify_date", insertable = false)
     private LocalDateTime lastModifyDate;
 
     @Column(name = "conclusion_date")
