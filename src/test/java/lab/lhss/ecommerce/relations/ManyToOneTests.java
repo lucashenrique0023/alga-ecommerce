@@ -47,8 +47,9 @@ public class ManyToOneTests extends EntityManagerTest {
         entityManager.persist(order);
 
         OrderItem orderItem = new OrderItem();
-        orderItem.setOrderId(order.getId());
-        orderItem.setItemId(item.getId());
+//        orderItem.setOrderId(order.getId());  idClass
+//        orderItem.setItemId(item.getId());
+        orderItem.setId(new OrderItemId(order.getId(), item.getId()));
         orderItem.setOrder(order);
         orderItem.setItem(item);
         orderItem.setItemPrice(item.getPrice());

@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 public class CompositeKeyTest extends EntityManagerTest {
 
     @Test
-    public void saveItem() {
+    public void saveItemCompositeKeys() {
 
         entityManager.getTransaction().begin();
 
@@ -27,8 +27,9 @@ public class CompositeKeyTest extends EntityManagerTest {
         entityManager.flush();
 
         OrderItem orderItem = new OrderItem();
-        orderItem.setOrderId(order.getId());
-        orderItem.setItemId(item.getId());
+//        orderItem.setOrderId(order.getId());  idClass
+//        orderItem.setItemId(item.getId());  idClass
+        orderItem.setId(new OrderItemId(order.getId(), item.getId()));
         orderItem.setOrder(order);
         orderItem.setItem(item);
         orderItem.setItemPrice(item.getPrice());
