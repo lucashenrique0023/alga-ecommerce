@@ -2,11 +2,13 @@ package lab.lhss.ecommerce.advancedmapping;
 
 import lab.lhss.ecommerce.EntityManagerTest;
 import lab.lhss.ecommerce.model.Attribute;
+import lab.lhss.ecommerce.model.Client;
 import lab.lhss.ecommerce.model.Item;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 public class ElementCollectionTests extends EntityManagerTest {
 
@@ -40,5 +42,18 @@ public class ElementCollectionTests extends EntityManagerTest {
 
         Item itemVerify = entityManager.find(Item.class, 1);
         Assert.assertFalse(itemVerify.getAttributes().isEmpty());
+    }
+
+    @Test
+    public void testElementCollectionwithMap() {
+        Client client = entityManager.find(Client.class, 1);
+
+        entityManager.getTransaction().begin();
+        client.setContacts(Collections.singletonMap("email", "lucas@email.com"));
+        entityManager.getTransaction().commit();
+        entityManager.clear();
+
+        Client clientVerify = entityManager.find(Client.class, client.getId());
+        Assert.assertEquals("lucas@email.com", clientVerify.getContacts().get("email"));
     }
 }
