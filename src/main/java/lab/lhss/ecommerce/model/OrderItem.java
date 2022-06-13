@@ -33,4 +33,12 @@ public class OrderItem {
     @Column(name = "amount")
     private Integer amount;
 
+    @Transient
+    private BigDecimal total;
+
+    @PostLoad
+    public void totalSum() {
+        total = itemPrice.multiply(BigDecimal.valueOf(amount));
+    }
+
 }
