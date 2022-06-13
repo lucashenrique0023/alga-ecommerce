@@ -25,9 +25,9 @@ public class Client {
 
     @ElementCollection
     @CollectionTable(name = "client_contacts", joinColumns = @JoinColumn(name = "client_id"))
-    @MapKeyColumn(name = "type")
+    @MapKeyEnumerated(EnumType.STRING)
     @Column(name = "description")
-    private Map<String, String> contacts;
+    private Map<ContactTypes, String> contacts;
 
     private String name;
 

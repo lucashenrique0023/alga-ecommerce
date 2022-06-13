@@ -3,6 +3,7 @@ package lab.lhss.ecommerce.advancedmapping;
 import lab.lhss.ecommerce.EntityManagerTest;
 import lab.lhss.ecommerce.model.Attribute;
 import lab.lhss.ecommerce.model.Client;
+import lab.lhss.ecommerce.model.ContactTypes;
 import lab.lhss.ecommerce.model.Item;
 import org.junit.Assert;
 import org.junit.Test;
@@ -49,11 +50,12 @@ public class ElementCollectionTests extends EntityManagerTest {
         Client client = entityManager.find(Client.class, 1);
 
         entityManager.getTransaction().begin();
-        client.setContacts(Collections.singletonMap("email", "lucas@email.com"));
+        //client.setContacts(Collections.singletonMap("email", "lucas@email.com"));
+        client.setContacts(Collections.singletonMap(ContactTypes.EMAIL, "lucas@email.com"));
         entityManager.getTransaction().commit();
         entityManager.clear();
 
         Client clientVerify = entityManager.find(Client.class, client.getId());
-        Assert.assertEquals("lucas@email.com", clientVerify.getContacts().get("email"));
+        Assert.assertEquals("lucas@email.com", clientVerify.getContacts().get(ContactTypes.EMAIL));
     }
 }
