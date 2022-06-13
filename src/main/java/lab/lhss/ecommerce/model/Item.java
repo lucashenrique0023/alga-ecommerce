@@ -36,9 +36,13 @@ public class Item {
     private BigDecimal price;
 
     @ElementCollection
-    @CollectionTable(name = "item_tag", joinColumns = @JoinColumn(name= "item_id"))
+    @CollectionTable(name = "item_tag", joinColumns = @JoinColumn(name = "item_id"))
     @Column(name = "tag")
     private List<String> tags;
+
+    @ElementCollection
+    @CollectionTable(name = "item_attribute", joinColumns = @JoinColumn(name = "item_id"))
+    private List<Attribute> attributes;
 
     @ManyToMany
     @JoinTable(name = "item_category",
