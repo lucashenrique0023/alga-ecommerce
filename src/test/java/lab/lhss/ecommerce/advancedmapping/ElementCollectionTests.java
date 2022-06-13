@@ -21,6 +21,7 @@ public class ElementCollectionTests extends EntityManagerTest {
 
         Item itemVerify = entityManager.find(Item.class, 1);
 
+        itemVerify.getTags().forEach(System.out::println);
         Assert.assertFalse(itemVerify.getTags().isEmpty());
 
 

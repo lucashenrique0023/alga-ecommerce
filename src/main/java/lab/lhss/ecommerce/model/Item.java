@@ -36,7 +36,7 @@ public class Item {
     private BigDecimal price;
 
     @ElementCollection
-    @JoinTable(name = "item_tag", joinColumns = @JoinColumn(name= "item_id"))
+    @CollectionTable(name = "item_tag", joinColumns = @JoinColumn(name= "item_id"))
     @Column(name = "tag")
     private List<String> tags;
 
