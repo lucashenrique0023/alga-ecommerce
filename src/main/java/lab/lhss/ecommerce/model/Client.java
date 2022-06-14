@@ -5,10 +5,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
 @Entity
+@SecondaryTable(name = "client_details", pkJoinColumns = @PrimaryKeyJoinColumn(name =  "client_id"))
 @Getter
 @Setter
 @Table(name = "client")
@@ -32,5 +34,11 @@ public class Client {
     private String name;
 
     @Enumerated(EnumType.STRING)
+    @Column(table = "client_details")
     private Gender gender;
+
+    @Column(name = "birth_date", table = "client_details")
+    private LocalDate birthDate;
 }
+
+
