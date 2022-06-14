@@ -14,13 +14,7 @@ import java.util.Map;
 @Getter
 @Setter
 @Table(name = "client")
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Client {
-
-    @Id
-    @EqualsAndHashCode.Include
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class Client extends IntegerBaseEntity {
 
     @OneToMany(mappedBy = "client")
     private List<Order> orders;
@@ -31,6 +25,7 @@ public class Client {
     @Column(name = "description")
     private Map<ContactTypes, String> contacts;
 
+    @EqualsAndHashCode.Include
     private String name;
 
     @Enumerated(EnumType.STRING)
