@@ -35,6 +35,9 @@ public class Item {
 
     private BigDecimal price;
 
+    @Lob
+    private byte[] picture;
+
     @ElementCollection
     @CollectionTable(name = "item_tag", joinColumns = @JoinColumn(name = "item_id"))
     @Column(name = "tag")
