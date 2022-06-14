@@ -37,7 +37,7 @@ public class OneToOneTests extends EntityManagerTest {
         Order order = entityManager.find(Order.class, 1);
 
         Invoice invoice = new Invoice();
-        invoice.setXml("TEST");
+        invoice.setXml(new byte[1]);
         invoice.setOrder(order);
         invoice.setEmissionDate(new Date());
 
