@@ -18,7 +18,7 @@ public class OneToOneTests extends EntityManagerTest {
 
         CreditCardPayment payment = new CreditCardPayment();
         payment.setOrder(order);
-        payment.setNumber("1234");
+        payment.setCardNumber("1234");
         payment.setStatus(PaymentStatus.PROCESSING);
 
         entityManager.getTransaction().begin();

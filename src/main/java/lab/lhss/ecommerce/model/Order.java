@@ -46,7 +46,7 @@ public class Order {
     private OrderStatus status;
 
     @OneToOne(mappedBy = "order")
-    private CreditCardPayment payment;
+    private Payment payment;
 
     @OneToOne(mappedBy = "order")
     private Invoice invoice;

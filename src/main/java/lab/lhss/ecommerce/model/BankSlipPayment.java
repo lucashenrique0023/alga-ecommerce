@@ -1,28 +1,17 @@
 package lab.lhss.ecommerce.model;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
-import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
-@Entity
 @Getter
 @Setter
-@Table(name = "bank_slip")
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class BankSlipPayment {
-
-    @Id
-    @EqualsAndHashCode.Include
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
-    @Column(name = "order_id")
-    private Integer orderId;
-
-    private PaymentStatus status;
+@Entity
+@Table(name = "payment_bank_slip")
+public class BankSlipPayment extends Payment {
 
     @Column(name = "bar_code")
     private String barCode;
