@@ -15,13 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "item")
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Item {
-
-    @Id
-    @EqualsAndHashCode.Include
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class Item extends IntegerBaseEntity {
 
     @Column(name = "created_date", updatable = false)
     private LocalDateTime createDate;

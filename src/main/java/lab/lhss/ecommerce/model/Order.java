@@ -16,13 +16,7 @@ import java.util.List;
 @Setter
 @Table(name = "orderr")
 @EntityListeners({GenerateInvoiceListener.class, GenericListener.class})
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Order {
-
-    @Id
-    @EqualsAndHashCode.Include
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class Order extends IntegerBaseEntity {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "client_id")

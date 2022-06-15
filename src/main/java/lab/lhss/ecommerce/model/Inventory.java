@@ -10,13 +10,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Table(name = "inventory")
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Inventory {
-
-    @Id
-    @EqualsAndHashCode.Include
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Inventory extends IntegerBaseEntity {
 
     @OneToOne(optional = false)
     @JoinColumn(name = "item_id")

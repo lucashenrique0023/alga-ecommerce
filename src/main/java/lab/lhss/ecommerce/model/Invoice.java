@@ -11,13 +11,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Table(name = "invoice")
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Invoice {
-
-    @Id
-    @Column(name = "order_id")
-    @EqualsAndHashCode.Include
-    private Integer id;
+public class Invoice extends IntegerBaseEntity {
 
     @MapsId
     @OneToOne(optional = false)

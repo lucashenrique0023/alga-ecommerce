@@ -11,13 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "category")
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Category {
-
-    @Id
-    @EqualsAndHashCode.Include
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class Category extends IntegerBaseEntity {
 
     private String name;
 
