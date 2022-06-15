@@ -34,16 +34,20 @@ public class InheritanceTests extends EntityManagerTest {
                 .getResultList();
         payments.forEach(p -> System.out.println(p.getId()));
         Assert.assertFalse(payments.isEmpty());
-        Assert.assertEquals(2, payments.size());
     }
 
 
     @Test
     public void testIncludeNewPayment() {
+        Client client = entityManager.find(Client.class, 1);
 
-        Order order = entityManager.find(Order.class, 1);
+        Order order = new Order();
+        order.setClient(client);
+        order.setStatus(OrderStatus.WAITING);
 
-        Assert.assertNull(order.getPayment());
+        entityManager.getTransaction().begin();
+        entityManager.persist(order);
+        entityManager.getTransaction().commit();
 
         BankSlipPayment payment = new BankSlipPayment();
         payment.setOrder(order);
