@@ -1,8 +1,7 @@
 package lab.lhss.ecommerce.advancedmapping;
 
 import lab.lhss.ecommerce.EntityManagerTest;
-import lab.lhss.ecommerce.model.Client;
-import lab.lhss.ecommerce.model.Payment;
+import lab.lhss.ecommerce.model.*;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -38,5 +37,26 @@ public class InheritanceTests extends EntityManagerTest {
         Assert.assertEquals(2, payments.size());
     }
 
+
+    @Test
+    public void testIncludeNewPayment() {
+
+        Order order = entityManager.find(Order.class, 1);
+
+        Assert.assertNull(order.getPayment());
+
+        BankSlipPayment payment = new BankSlipPayment();
+        payment.setOrder(order);
+        payment.setStatus(PaymentStatus.PROCESSING);
+        payment.setBarCode("1234");
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(payment);
+        entityManager.getTransaction().commit();
+        entityManager.clear();
+
+        Order orderVerify = entityManager.find(Order.class, order.getId());
+        Assert.assertNotNull((orderVerify.getPayment()));
+    }
 
 }
