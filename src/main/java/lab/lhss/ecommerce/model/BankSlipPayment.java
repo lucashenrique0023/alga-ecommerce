@@ -11,7 +11,6 @@ import javax.persistence.Table;
 @Getter
 @Setter
 @Entity
-@Table(name = "payment_bank_slip")
 @DiscriminatorValue("bankslip")
 public class BankSlipPayment extends Payment {
 
