@@ -12,6 +12,7 @@ import javax.persistence.Table;
 @Setter
 @Entity
 @Table(name = "payment_credit_card")
+@DiscriminatorValue("creditcard")
 public class CreditCardPayment extends Payment {
 
     @Column(name = "card_number")

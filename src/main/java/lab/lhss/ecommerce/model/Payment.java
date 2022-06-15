@@ -8,7 +8,9 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Table(name = "payment")
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "payment_type", discriminatorType = DiscriminatorType.STRING)
 public abstract class Payment extends IntegerBaseEntity {
 
     @MapsId

@@ -12,7 +12,10 @@ insert into order_item (order_id, item_id, item_price, amount) values (1, 1, 499
 insert into order_item (order_id, item_id, item_price, amount) values (2, 1, 499.0, 1);
 
 
-insert into payment_credit_card (order_id, status, card_number) values (1, 'PROCESSING', '123');
-insert into payment_bank_slip (order_id, status, bar_code) values (2, 'PROCESSING', '123');
+insert into payment(payment_type, order_id, status) values ('creditcard',1, 'PROCESSING')
+insert into payment(payment_type, order_id, status) values ('bankslip', 2, 'PROCESSING')
+
+insert into payment_credit_card (order_id, card_number) values (1, '1234.1234.1234');
+insert into payment_bank_slip (order_id, bar_code) values (2, '12323932463874383454');
 
 insert into category (id, name) values (1, 'Electronics');

@@ -12,6 +12,7 @@ import javax.persistence.Table;
 @Setter
 @Entity
 @Table(name = "payment_bank_slip")
+@DiscriminatorValue("bankslip")
 public class BankSlipPayment extends Payment {
 
     @Column(name = "bar_code")
