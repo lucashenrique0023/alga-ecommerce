@@ -14,7 +14,9 @@ import java.util.List;
 @EntityListeners({GenericListener.class})
 @Getter
 @Setter
-@Table(name = "item")
+@Table(name = "item",
+        uniqueConstraints = @UniqueConstraint(name = "unq_name", columnNames = {"name"} ),
+        indexes = { @Index(name = "idx_name", columnList = "name") })
 public class Item extends IntegerBaseEntity {
 
     @Column(name = "created_date", updatable = false)

@@ -13,7 +13,9 @@ import java.util.Map;
 @SecondaryTable(name = "client_details", pkJoinColumns = @PrimaryKeyJoinColumn(name =  "client_id"))
 @Getter
 @Setter
-@Table(name = "client")
+@Table(name = "client",
+        uniqueConstraints = @UniqueConstraint(name = "unq_cpf", columnNames = {"cpf"}),
+        indexes = { @Index(name = "idx_name", columnList = "name") })
 public class Client extends IntegerBaseEntity {
 
     @OneToMany(mappedBy = "client")
@@ -27,6 +29,8 @@ public class Client extends IntegerBaseEntity {
 
     @EqualsAndHashCode.Include
     private String name;
+
+    private String cpf;
 
     @Enumerated(EnumType.STRING)
     @Column(table = "client_details")
