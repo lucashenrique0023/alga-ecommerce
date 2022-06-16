@@ -19,14 +19,16 @@ import java.util.List;
         indexes = { @Index(name = "idx_name", columnList = "name") })
 public class Item extends IntegerBaseEntity {
 
-    @Column(name = "created_date", updatable = false)
+    @Column(name = "created_date", updatable = false, nullable = false)
     private LocalDateTime createDate;
 
     @Column(name = "last_modify_date", insertable = false)
     private LocalDateTime lastModifyDate;
 
+    @Column(length = 100, nullable = false)
     private String name;
 
+    @Column(columnDefinition = "varchar(275) not null default 'description'")
     private String description;
 
     private BigDecimal price;
@@ -36,7 +38,7 @@ public class Item extends IntegerBaseEntity {
 
     @ElementCollection
     @CollectionTable(name = "item_tag", joinColumns = @JoinColumn(name = "item_id"))
-    @Column(name = "tag")
+    @Column(name = "tag", length = 50, nullable = false)
     private List<String> tags;
 
     @ElementCollection

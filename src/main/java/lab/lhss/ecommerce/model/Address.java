@@ -11,17 +11,22 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Address {
 
+    @Column(length = 9)
     private String zip;
 
+    @Column(length = 100)
     private String street;
 
+    @Column(length = 10)
     private String number;
 
-    @Column(name = "additional_info")
+    @Column(name = "additional_info", length = 50)
     private String additionalInfo;
 
+    @Column(length = 50)
     private String city;
 
+    @Column(length = 2)
     private String state;
 
 

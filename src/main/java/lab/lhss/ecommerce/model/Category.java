@@ -14,6 +14,7 @@ import java.util.List;
         uniqueConstraints = @UniqueConstraint(name = "unq_name", columnNames = { "name" }))
 public class Category extends IntegerBaseEntity {
 
+    @Column(length = 100, nullable = false)
     private String name;
 
     @ManyToOne

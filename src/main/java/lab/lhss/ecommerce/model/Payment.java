@@ -19,6 +19,7 @@ public abstract class Payment extends IntegerBaseEntity {
     private Order order;
 
     @Enumerated(EnumType.STRING)
+    @Column(length = 30, nullable = false)
     private PaymentStatus status;
 
 }

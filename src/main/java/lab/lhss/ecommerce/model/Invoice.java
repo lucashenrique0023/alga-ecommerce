@@ -19,9 +19,10 @@ public class Invoice extends IntegerBaseEntity {
     private Order order;
 
     @Lob
+    @Column(nullable = false)
     private byte[] xml;
 
-    @Column(name = "emission_date")
+    @Column(name = "emission_date", nullable = false)
     private Date emissionDate;
 
 }

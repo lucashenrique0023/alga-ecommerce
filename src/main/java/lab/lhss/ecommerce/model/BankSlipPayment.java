@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @DiscriminatorValue("bankslip")
 public class BankSlipPayment extends Payment {
 
-    @Column(name = "bar_code")
+    @Column(name = "bar_code", length = 100, nullable = false)
     private String barCode;
 
 }

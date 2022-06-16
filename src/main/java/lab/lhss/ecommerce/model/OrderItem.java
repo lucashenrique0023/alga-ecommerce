@@ -27,10 +27,10 @@ public class OrderItem {
     @JoinColumn(name = "item_id")
     private Item item;
 
-    @Column(name = "item_price")
+    @Column(name = "item_price", nullable = false)
     private BigDecimal itemPrice;
 
-    @Column(name = "amount")
+    @Column(nullable = false)
     private Integer amount;
 
     @Transient

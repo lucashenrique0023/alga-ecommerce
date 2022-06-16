@@ -27,13 +27,15 @@ public class Client extends IntegerBaseEntity {
     @Column(name = "description")
     private Map<ContactTypes, String> contacts;
 
+    @Column(length = 100, nullable = false)
     @EqualsAndHashCode.Include
     private String name;
 
+    @Column(length = 14, nullable = false)
     private String cpf;
 
     @Enumerated(EnumType.STRING)
-    @Column(table = "client_details")
+    @Column(table = "client_details", length = 30, nullable = false)
     private Gender gender;
 
     @Column(name = "birth_date", table = "client_details")

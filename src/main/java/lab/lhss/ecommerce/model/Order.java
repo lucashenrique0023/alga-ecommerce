@@ -25,7 +25,7 @@ public class Order extends IntegerBaseEntity {
     @OneToMany(mappedBy = "order")
     private List<OrderItem> items;
 
-    @Column(name = "created_date", updatable = false)
+    @Column(name = "created_date", updatable = false, nullable = false)
     private LocalDateTime createDate;
 
     @Column(name = "last_modify_date", insertable = false)
@@ -34,9 +34,11 @@ public class Order extends IntegerBaseEntity {
     @Column(name = "conclusion_date")
     private LocalDateTime conclusionDate;
 
+    @Column(nullable = false)
     private BigDecimal total;
 
     @Enumerated(EnumType.STRING)
+    @Column(length = 30, nullable = false)
     private OrderStatus status;
 
     @OneToOne(mappedBy = "order")
