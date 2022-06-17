@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Date;
 
 public class SavingFilesTests extends EntityManagerTest {
 
@@ -22,6 +23,8 @@ public class SavingFilesTests extends EntityManagerTest {
         Invoice invoice = new Invoice();
         invoice.setXml(loadFile("/nota-fiscal.xml"));
         invoice.setOrder(entityManager.find(Order.class, 1));
+        invoice.setEmissionDate(new Date());
+
         entityManager.persist(invoice);
         entityManager.getTransaction().commit();
         entityManager.clear();

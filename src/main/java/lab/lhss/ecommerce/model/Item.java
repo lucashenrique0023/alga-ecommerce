@@ -1,7 +1,6 @@
 package lab.lhss.ecommerce.model;
 
 import lab.lhss.ecommerce.listener.GenericListener;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,7 +27,7 @@ public class Item extends IntegerBaseEntity {
     @Column(length = 100, nullable = false)
     private String name;
 
-    @Column(columnDefinition = "varchar(275) not null default 'description'")
+    @Column(columnDefinition = "varchar(275) default 'description'")
     private String description;
 
     private BigDecimal price;

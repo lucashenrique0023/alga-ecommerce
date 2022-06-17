@@ -10,7 +10,7 @@ public class StrategyPrimaryKeyTest extends EntityManagerTest {
     @Test
     public void testStrategyKey() {
         Category category = new Category();
-        category.setName("Electronics");
+        category.setName("Home");
 
         entityManager.getTransaction().begin();
         entityManager.persist(category);

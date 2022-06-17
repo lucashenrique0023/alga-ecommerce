@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @DiscriminatorValue("creditcard")
 public class CreditCardPayment extends Payment {
 
-    @Column(name = "card_number", length = 50, nullable = false)
+    @Column(name = "card_number", length = 50)
     private String cardNumber;
 
 }

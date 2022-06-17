@@ -11,7 +11,7 @@ public class RemoveEntityWithRelations extends EntityManagerTest {
     @Test
     public void verifyRelation() {
 
-        Order order = entityManager.find(Order.class, 1);
+        Order order = entityManager.find(Order.class, 5);
         Assert.assertFalse(order.getItems().isEmpty());
 
         entityManager.getTransaction().begin();
@@ -21,7 +21,7 @@ public class RemoveEntityWithRelations extends EntityManagerTest {
 
         entityManager.clear();
 
-        Order orderVerify = entityManager.find(Order.class, 1);
+        Order orderVerify = entityManager.find(Order.class, order.getId());
         Assert.assertNull(orderVerify);
     }
 }

@@ -14,7 +14,7 @@ public class OneToOneTests extends EntityManagerTest {
     @Test
     public void verifyPaymentRelation() {
 
-        Order order = entityManager.find(Order.class, 1);
+        Order order = entityManager.find(Order.class, 3);
 
         CreditCardPayment payment = new CreditCardPayment();
         payment.setOrder(order);
@@ -34,7 +34,7 @@ public class OneToOneTests extends EntityManagerTest {
     @Test
     public void verifyInvoiceRelation() {
 
-        Order order = entityManager.find(Order.class, 1);
+        Order order = entityManager.find(Order.class, 4);
 
         Invoice invoice = new Invoice();
         invoice.setXml(new byte[1]);

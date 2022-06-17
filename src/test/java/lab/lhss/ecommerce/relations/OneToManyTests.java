@@ -47,6 +47,8 @@ public class OneToManyTests extends EntityManagerTest {
         Item item = entityManager.find(Item.class, 1);
 
         OrderItem orderItem = new OrderItem();
+        orderItem.setId(new OrderItemId());
+        orderItem.setItemPrice(item.getPrice());
         orderItem.setOrder(order);
         orderItem.setItem(item);
         orderItem.setAmount(5);

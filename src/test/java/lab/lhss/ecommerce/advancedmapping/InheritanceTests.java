@@ -15,6 +15,8 @@ public class InheritanceTests extends EntityManagerTest {
         Client client = new Client();
 
         client.setName("Kevin McAlister");
+        client.setCpf("12345");
+        client.setGender(Gender.MALE);
 
         entityManager.getTransaction().begin();
         entityManager.persist(client);
@@ -39,15 +41,7 @@ public class InheritanceTests extends EntityManagerTest {
 
     @Test
     public void testIncludeNewPayment() {
-        Client client = entityManager.find(Client.class, 1);
-
-        Order order = new Order();
-        order.setClient(client);
-        order.setStatus(OrderStatus.WAITING);
-
-        entityManager.getTransaction().begin();
-        entityManager.persist(order);
-        entityManager.getTransaction().commit();
+        Order order = entityManager.find(Order.class, 2);
 
         BankSlipPayment payment = new BankSlipPayment();
         payment.setOrder(order);

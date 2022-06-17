@@ -2,6 +2,7 @@ package lab.lhss.ecommerce.startingwithjpa;
 
 import lab.lhss.ecommerce.EntityManagerTest;
 import lab.lhss.ecommerce.model.Client;
+import lab.lhss.ecommerce.model.Gender;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -11,7 +12,9 @@ public class ClientCrudTest extends EntityManagerTest {
     public void createClient() {
 
         Client client = new Client();
-        client.setName("Lucas");
+        client.setName("Fernanda");
+        client.setCpf("12442");
+        client.setGender(Gender.FEMALE);
 
         entityManager.getTransaction().begin();
         entityManager.persist(client);
@@ -53,13 +56,13 @@ public class ClientCrudTest extends EntityManagerTest {
     @Test
     public void removeClient() {
 
-        Client client = entityManager.find(Client.class, 3);
+        Client client = entityManager.find(Client.class, 4);
 
         entityManager.getTransaction().begin();
         entityManager.remove(client);
         entityManager.getTransaction().commit();
 
-        client = entityManager.find(Client.class, 3);
+        client = entityManager.find(Client.class, 4);
 
         Assert.assertNull(client);
     }

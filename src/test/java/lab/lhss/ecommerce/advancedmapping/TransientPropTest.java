@@ -16,6 +16,6 @@ public class TransientPropTest extends EntityManagerTest {
 
         OrderItem orderItem = entityManager.find(OrderItem.class, new OrderItemId(1, 1));
 
-        Assert.assertEquals((BigDecimal.valueOf(10.00)).setScale(2, RoundingMode.HALF_EVEN), orderItem.getTotal());
+        Assert.assertEquals((BigDecimal.valueOf(998.00)).setScale(2, RoundingMode.HALF_EVEN), orderItem.getTotal());
     }
 }

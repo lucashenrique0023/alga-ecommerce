@@ -15,7 +15,8 @@ public class Invoice extends IntegerBaseEntity {
 
     @MapsId
     @OneToOne(optional = false)
-    @JoinColumn(name = "order_id")
+    @JoinColumn(name = "order_id", nullable = false,
+            foreignKey = @ForeignKey(name = "fk_invoice_order"), unique = true)
     private Order order;
 
     @Lob

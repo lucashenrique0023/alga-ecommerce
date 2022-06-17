@@ -13,6 +13,7 @@ public class MappingEnumTest extends EntityManagerTest {
         Client client = new Client();
         client.setName("José Mineiro");
         client.setGender(Gender.MALE);
+        client.setCpf("12342");
 
         entityManager.getTransaction().begin();
         entityManager.persist(client);

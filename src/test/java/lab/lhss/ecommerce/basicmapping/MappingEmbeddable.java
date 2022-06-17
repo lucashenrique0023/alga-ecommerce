@@ -2,6 +2,7 @@ package lab.lhss.ecommerce.basicmapping;
 
 import lab.lhss.ecommerce.EntityManagerTest;
 import lab.lhss.ecommerce.model.Address;
+import lab.lhss.ecommerce.model.Client;
 import lab.lhss.ecommerce.model.Order;
 import lab.lhss.ecommerce.model.OrderStatus;
 import org.junit.Assert;
@@ -23,7 +24,7 @@ public class MappingEmbeddable extends EntityManagerTest {
         address.setState("MG");
 
         Order order = new Order();
-        order.setId(1);
+        order.setClient(entityManager.find(Client.class, 1));
         order.setCreateDate(LocalDateTime.now());
         order.setStatus(OrderStatus.WAITING);
         order.setTotal(new BigDecimal(1000));
