@@ -10,7 +10,9 @@ import java.util.List;
 import java.util.Map;
 
 @Entity
-@SecondaryTable(name = "client_details", pkJoinColumns = @PrimaryKeyJoinColumn(name =  "client_id"))
+@SecondaryTable(name = "client_details",
+        pkJoinColumns = @PrimaryKeyJoinColumn(name =  "client_id"),
+        foreignKey = @ForeignKey(name = "fk_client_details_client"))
 @Getter
 @Setter
 @Table(name = "client",
