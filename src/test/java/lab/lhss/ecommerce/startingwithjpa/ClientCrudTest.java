@@ -56,15 +56,26 @@ public class ClientCrudTest extends EntityManagerTest {
     @Test
     public void removeClient() {
 
-        Client client = entityManager.find(Client.class, 4);
+        Client client = new Client();
+        client.setName("Name Name");
+        client.setCpf("127362");
+        client.setGender(Gender.MALE);
+
 
         entityManager.getTransaction().begin();
-        entityManager.remove(client);
+        entityManager.persist(client);
+        entityManager.getTransaction().commit();
+        entityManager.clear();
+
+        Client clientVerify = entityManager.find(Client.class, client.getId());
+
+        entityManager.getTransaction().begin();
+        entityManager.remove(clientVerify);
         entityManager.getTransaction().commit();
 
-        client = entityManager.find(Client.class, 4);
+        Client clientAssert = entityManager.find(Client.class, client.getId());
 
-        Assert.assertNull(client);
+        Assert.assertNull(clientAssert);
     }
 
 }

@@ -36,18 +36,21 @@ public class Item extends IntegerBaseEntity {
     private byte[] picture;
 
     @ElementCollection
-    @CollectionTable(name = "item_tag", joinColumns = @JoinColumn(name = "item_id"))
+    @CollectionTable(name = "item_tag", joinColumns = @JoinColumn(name = "item_id",
+        foreignKey = @ForeignKey(name = "fk_item_tag_item")))
     @Column(name = "tag", length = 50, nullable = false)
     private List<String> tags;
 
     @ElementCollection
-    @CollectionTable(name = "item_attribute", joinColumns = @JoinColumn(name = "item_id"))
+    @CollectionTable(name = "item_attribute", joinColumns = @JoinColumn(name = "item_id",
+        foreignKey = @ForeignKey(name = "fk_item_attribute_item")))
     private List<Attribute> attributes;
 
     @ManyToMany
     @JoinTable(name = "item_category",
-            joinColumns = @JoinColumn(name = "item_id"),
-            inverseJoinColumns = @JoinColumn(name = "category_id"))
+            joinColumns = @JoinColumn(name = "item_id", foreignKey = @ForeignKey(name = "fk_item_category_item")),
+            inverseJoinColumns = @JoinColumn(name = "category_id", foreignKey = @ForeignKey(name = "fk_item_category_category")),
+            uniqueConstraints = @UniqueConstraint(name = "unq_item_category", columnNames = {"item_id", "category_id"}))
     private List<Category> categories;
 
     @OneToOne(mappedBy = "item")

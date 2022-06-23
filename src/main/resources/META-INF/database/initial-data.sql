@@ -18,12 +18,13 @@ insert into orderr (id, client_id, created_date, last_modify_date, total, status
 insert into orderr (id, client_id, created_date, last_modify_date, total, status) values (3, 2, date_sub(sysdate(), interval 1 day), date_sub(sysdate(), interval 1 day), 449.0, 'WAITING');
 insert into orderr (id, client_id, created_date, last_modify_date, total, status) values (4, 3, date_sub(sysdate(), interval 1 day), date_sub(sysdate(), interval 1 day), 449.0, 'WAITING');
 insert into orderr (id, client_id, created_date, last_modify_date, total, status) values (5, 3, date_sub(sysdate(), interval 1 day), date_sub(sysdate(), interval 1 day), 449.0, 'WAITING');
+insert into orderr (id, client_id, created_date, last_modify_date, total, status) values (6, 4, date_sub(sysdate(), interval 1 day), date_sub(sysdate(), interval 1 day), 3499.0, 'WAITING');
 
 insert into order_item (order_id, item_id, item_price, amount) values (1, 1, 499.0, 2);
 insert into order_item (order_id, item_id, item_price, amount) values (2, 1, 499.0, 1);
-insert into order_item (order_id, item_id, item_price, amount) values (3, 2, 499.0, 1);
+insert into order_item (order_id, item_id, item_price, amount) values (3, 1, 499.0, 1);
 insert into order_item (order_id, item_id, item_price, amount) values (4, 3, 499.0, 1);
-insert into order_item (order_id, item_id, item_price, amount) values (5, 3, 499.0, 1);
+insert into order_item (order_id, item_id, item_price, amount) values (6, 5, 3499.0, 1);
 
 
 insert into payment(payment_type, order_id, status, card_number) values ('creditcard',1, 'PROCESSING', '123412341234')

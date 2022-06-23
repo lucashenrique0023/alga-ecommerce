@@ -22,7 +22,8 @@ public class Client extends IntegerBaseEntity {
     private List<Order> orders;
 
     @ElementCollection
-    @CollectionTable(name = "client_contacts", joinColumns = @JoinColumn(name = "client_id"))
+    @CollectionTable(name = "client_contacts",
+            joinColumns = @JoinColumn(name = "client_id", foreignKey = @ForeignKey(name = "fk_client_contacts_client")))
     @MapKeyEnumerated(EnumType.STRING)
     @Column(name = "description")
     private Map<ContactTypes, String> contacts;

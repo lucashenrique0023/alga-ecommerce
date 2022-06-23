@@ -18,7 +18,7 @@ public class Category extends IntegerBaseEntity {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "upper_category")
+    @JoinColumn(name = "upper_category", foreignKey = @ForeignKey(name = "pk_category_category"))
     private Category upperCategory;
 
     @OneToMany(mappedBy = "upperCategory")
