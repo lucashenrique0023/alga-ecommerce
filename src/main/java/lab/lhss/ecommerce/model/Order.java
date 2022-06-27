@@ -23,7 +23,7 @@ public class Order extends IntegerBaseEntity {
             foreignKey = @ForeignKey(name = "fk_order_client"))
     private Client client;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.MERGE)
     private List<OrderItem> items;
 
     @Column(name = "created_date", updatable = false, nullable = false)
@@ -57,8 +57,11 @@ public class Order extends IntegerBaseEntity {
 
     public void calculateOrderTotal() {
         if (items != null) {
-            total = items.stream().map(OrderItem::getItemPrice)
+            total = items.stream().map(
+                    i -> new BigDecimal(i.getAmount()).multiply(i.getItemPrice()))
                     .reduce(BigDecimal.ZERO, BigDecimal::add);
+        } else {
+            total = BigDecimal.ZERO;
         }
     }
 

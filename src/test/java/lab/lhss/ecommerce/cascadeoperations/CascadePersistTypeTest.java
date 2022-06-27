@@ -98,7 +98,7 @@ public class CascadePersistTypeTest extends EntityManagerTest {
         Assert.assertNotNull(clientVerify);
     }
 
-    @Test
+    //@Test
     public void persistItemAndCategoryAsCascate() {
 
         Item item = new Item();
@@ -112,7 +112,7 @@ public class CascadePersistTypeTest extends EntityManagerTest {
         item.setCategories(Collections.singletonList(category));
 
         entityManager.getTransaction().begin();
-        entityManager.persist(item);  // CascadeType.PERSIST on Category
+        entityManager.persist(item);  // CascadeType.PERSIST on attribute Category
         entityManager.getTransaction().commit();
         entityManager.clear();
 
