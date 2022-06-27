@@ -9,7 +9,7 @@ import java.util.Collections;
 
 public class CascadeTypeMergeTest extends EntityManagerTest {
 
-    @Test
+    //@Test
     public void testMergeOrderAndOrderItem() {
 
         Client client = entityManager.find(Client.class, 1);

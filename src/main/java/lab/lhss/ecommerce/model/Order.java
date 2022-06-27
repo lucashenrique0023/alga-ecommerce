@@ -23,7 +23,7 @@ public class Order extends IntegerBaseEntity {
             foreignKey = @ForeignKey(name = "fk_order_client"))
     private Client client;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "order")
     private List<OrderItem> items;
 
     @Column(name = "created_date", updatable = false, nullable = false)
