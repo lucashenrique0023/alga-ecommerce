@@ -98,4 +98,26 @@ public class CascadePersistTypeTest extends EntityManagerTest {
         Assert.assertNotNull(clientVerify);
     }
 
+    @Test
+    public void persistItemAndCategoryAsCascate() {
+
+        Item item = new Item();
+        item.setCreateDate(LocalDateTime.now());
+        item.setName("Pendrive");
+        item.setPrice(BigDecimal.TEN);
+        item.setAttributes(Collections.singletonList(new Attribute("color", "red")));
+        Category category = new Category();
+        category.setName("Devices");
+
+        item.setCategories(Collections.singletonList(category));
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(item);  // CascadeType.PERSIST on Category
+        entityManager.getTransaction().commit();
+        entityManager.clear();
+
+        Category categoryVerify = entityManager.find(Category.class, category.getId());
+        Assert.assertNotNull(category.getId());
+    }
+
 }

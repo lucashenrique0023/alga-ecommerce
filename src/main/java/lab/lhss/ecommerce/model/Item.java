@@ -46,7 +46,7 @@ public class Item extends IntegerBaseEntity {
         foreignKey = @ForeignKey(name = "fk_item_attribute_item")))
     private List<Attribute> attributes;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "item_category",
             joinColumns = @JoinColumn(name = "item_id", foreignKey = @ForeignKey(name = "fk_item_category_item")),
             inverseJoinColumns = @JoinColumn(name = "category_id", foreignKey = @ForeignKey(name = "fk_item_category_category")),
