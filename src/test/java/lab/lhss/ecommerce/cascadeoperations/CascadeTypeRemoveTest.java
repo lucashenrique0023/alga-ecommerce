@@ -32,7 +32,7 @@ public class CascadeTypeRemoveTest extends EntityManagerTest {
         Assert.assertTrue(itemVerify.getCategories().isEmpty());
     }
 
-    @Test
+    //@Test
     public void removingOrphalItem() {
 
         Order order = entityManager.find(Order.class, 1);
@@ -48,7 +48,7 @@ public class CascadeTypeRemoveTest extends EntityManagerTest {
         Assert.assertTrue(orderVerify.getItems().isEmpty());
     }
 
-    @Test
+    //@Test
     public void removingOrderAndOrphalItem() {
 
         Order order = entityManager.find(Order.class, 1);
