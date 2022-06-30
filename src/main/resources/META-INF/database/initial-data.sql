@@ -30,3 +30,6 @@ insert into order_item (order_id, item_id, item_price, amount) values (6, 5, 349
 insert into payment(payment_type, order_id, status, card_number) values ('creditcard',1, 'PROCESSING', '123412341234')
 
 insert into category (id, name) values (1, 'Electronics');
+insert into category (id, name) values (2, 'Book');
+
+insert into item_category (item_id, category_id) values (1, 2)

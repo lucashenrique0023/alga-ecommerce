@@ -23,7 +23,7 @@ public class Order extends IntegerBaseEntity {
             foreignKey = @ForeignKey(name = "fk_order_client"))
     private Client client;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", orphanRemoval = true)
     private List<OrderItem> items;
 
     @Column(name = "created_date", updatable = false, nullable = false)
@@ -42,7 +42,7 @@ public class Order extends IntegerBaseEntity {
     @Column(length = 30, nullable = false)
     private OrderStatus status;
 
-    @OneToOne(mappedBy = "order")
+    @OneToOne(mappedBy = "order", orphanRemoval = true)
     private Payment payment;
 
     @OneToOne(mappedBy = "order")
