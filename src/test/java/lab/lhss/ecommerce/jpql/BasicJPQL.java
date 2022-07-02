@@ -57,6 +57,19 @@ public class BasicJPQL extends EntityManagerTest {
         TypedQuery<Client> clientTypedQuery = entityManager.createQuery(jpqlClient, Client.class);
         List<Client> clientList = clientTypedQuery.getResultList();
         Assert.assertTrue(Client.class.equals(clientList.get(0).getClass()));
+
+    }
+
+    @Test
+    public void selectMultiplesAttributes() {
+
+        String jpql = "select i.id, i.name from Item i";
+
+        TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
+        List<Object[]> list = typedQuery.getResultList();
+
+        Assert.assertTrue(list.get(0).length == 2);
+        list.forEach(arr -> System.out.println(arr[0] + " ," + arr[1]));
     }
 
 }
