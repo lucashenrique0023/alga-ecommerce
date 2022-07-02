@@ -1,6 +1,8 @@
 package lab.lhss.ecommerce.jpql;
 
 import lab.lhss.ecommerce.EntityManagerTest;
+import lab.lhss.ecommerce.model.Client;
+import lab.lhss.ecommerce.model.Item;
 import lab.lhss.ecommerce.model.Order;
 import org.junit.Assert;
 import org.junit.Test;
@@ -41,6 +43,20 @@ public class BasicJPQL extends EntityManagerTest {
         Order order2 = (Order) query.getSingleResult();
         Assert.assertNotNull(order2);
 
+    }
+
+    @Test
+    public void selectReturnAttribute() {
+
+        String jpql = "select i.name from Item i";
+        TypedQuery<String> itemTypedQuery = entityManager.createQuery(jpql, String.class);
+        List<String> listItemNames = itemTypedQuery.getResultList();
+        Assert.assertTrue(String.class.equals(listItemNames.get(0).getClass()));
+
+        String jpqlClient = "select o.client from Order o";
+        TypedQuery<Client> clientTypedQuery = entityManager.createQuery(jpqlClient, Client.class);
+        List<Client> clientList = clientTypedQuery.getResultList();
+        Assert.assertTrue(Client.class.equals(clientList.get(0).getClass()));
     }
 
 }
