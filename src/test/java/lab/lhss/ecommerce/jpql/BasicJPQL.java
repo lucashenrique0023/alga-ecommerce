@@ -1,6 +1,7 @@
 package lab.lhss.ecommerce.jpql;
 
 import lab.lhss.ecommerce.EntityManagerTest;
+import lab.lhss.ecommerce.dto.ItemDTO;
 import lab.lhss.ecommerce.model.Client;
 import lab.lhss.ecommerce.model.Item;
 import lab.lhss.ecommerce.model.Order;
@@ -9,6 +10,7 @@ import org.junit.Test;
 
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import java.lang.reflect.Type;
 import java.util.List;
 
 public class BasicJPQL extends EntityManagerTest {
@@ -61,7 +63,7 @@ public class BasicJPQL extends EntityManagerTest {
     }
 
     @Test
-    public void selectMultiplesAttributes() {
+    public void selectMultipleAttributesWithObjectArray() {
 
         String jpql = "select i.id, i.name from Item i";
 
@@ -70,6 +72,16 @@ public class BasicJPQL extends EntityManagerTest {
 
         Assert.assertTrue(list.get(0).length == 2);
         list.forEach(arr -> System.out.println(arr[0] + " ," + arr[1]));
+    }
+
+    @Test
+    public void selectMultipleAttributesWithDTOClass() {
+
+        String jpql = "select new lab.lhss.ecommerce.dto.ItemDTO(i.id, i.name) from Item i";
+        TypedQuery<ItemDTO> typedQuery = entityManager.createQuery(jpql, ItemDTO.class);
+        List<ItemDTO> resultList = typedQuery.getResultList();
+        Assert.assertFalse(resultList.isEmpty());
+        resultList.forEach(i -> System.out.println(i.getId() + " ," + i.getName()));
     }
 
 }
