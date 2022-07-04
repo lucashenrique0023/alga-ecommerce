@@ -11,6 +11,8 @@ import java.util.List;
 
 public class JoinTests extends EntityManagerTest {
 
+    // INNER JOIN //
+
     @Test
     public void innerJoinOneToOneRelationTest() {
 
@@ -52,6 +54,18 @@ public class JoinTests extends EntityManagerTest {
         List<Object[]> list = typedQuery.getResultList();
 
         Assert.assertTrue(list.size() == 6);
+    }
+
+    // LEFT JOIN //
+
+    @Test
+    public void leftJoinTest() {
+
+        String jpql = "select o from Order o left join o.payment p on p.status = 'PROCESSING'";
+        TypedQuery<Order> typedQuery = entityManager.createQuery(jpql, Order.class);
+        List<Order> list = typedQuery.getResultList();
+        Assert.assertFalse(list.isEmpty());
+
     }
 
 }
