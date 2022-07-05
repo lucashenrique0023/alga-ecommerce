@@ -65,7 +65,21 @@ public class JoinTests extends EntityManagerTest {
         TypedQuery<Order> typedQuery = entityManager.createQuery(jpql, Order.class);
         List<Order> list = typedQuery.getResultList();
         Assert.assertFalse(list.isEmpty());
-
     }
+
+    // JOIN FETCH //
+
+    @Test
+    public void joinFetchTest() {
+        String jpql = "select o from Order o " +
+                " join fetch o.client " +
+                " left join fetch o.payment " +
+                " left join fetch o.invoice " +
+                " where o.id = 1";
+        TypedQuery<Order> typedQuery = entityManager.createQuery(jpql, Order.class);
+        List<Order> list = typedQuery.getResultList();
+        Assert.assertFalse(list.isEmpty());
+    }
+
 
 }
