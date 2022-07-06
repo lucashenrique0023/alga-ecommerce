@@ -22,6 +22,7 @@ public class Invoice extends IntegerBaseEntity {
     @Column(nullable = false)
     private byte[] xml;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "emission_date", nullable = false)
     private Date emissionDate;
 
