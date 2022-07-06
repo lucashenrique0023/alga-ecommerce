@@ -3,10 +3,10 @@ insert into item (id, name, price, created_date,description) values (3, 'Camera 
 insert into item (id, name, price, created_date,description) values (4, 'Camera GoPro 2', 2499.0, date_sub(sysdate(), interval 1 day), 'Hell YEAH Camera.');
 insert into item (id, name, price, created_date,description) values (5, 'Camera GoPro 3', 3499.0, date_sub(sysdate(), interval 1 day), 'Holy Fuck Camera.');
 
-insert into client (id, name, cpf) values (1, "Lucas", "105");
-insert into client (id, name, cpf) values (2, "Henrique", "123");
-insert into client (id, name, cpf) values (3, "Silva", "124");
-insert into client (id, name, cpf) values (4, "Amanda", "4432");
+insert into client (id, name, cpf) values (1, "Lucas Souza", "105");
+insert into client (id, name, cpf) values (2, "Henrique Vasconcelos", "123");
+insert into client (id, name, cpf) values (3, "Silva Lima", "124");
+insert into client (id, name, cpf) values (4, "Amanda Vaz", "4432");
 
 insert into client_details (client_id,gender, birth_date) values (1, "MALE", date_sub(sysdate(), interval 27 year))
 insert into client_details (client_id,gender, birth_date) values (2, "MALE", date_sub(sysdate(), interval 21 year))
