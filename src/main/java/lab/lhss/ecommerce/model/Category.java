@@ -25,5 +25,5 @@ public class Category extends IntegerBaseEntity {
     private List<Category> lowerCategories;
 
     @ManyToMany(mappedBy = "categories")
-    private List<Item> itens;
+    private List<Item> items;
 }

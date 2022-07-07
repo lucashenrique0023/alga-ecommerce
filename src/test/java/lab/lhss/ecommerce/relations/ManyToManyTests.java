@@ -22,7 +22,7 @@ public class ManyToManyTests extends EntityManagerTest {
 
         entityManager.clear();
         Category categoryVerify = entityManager.find(Category.class, 1);
-        Assert.assertFalse(categoryVerify.getItens().isEmpty());
+        Assert.assertFalse(categoryVerify.getItems().isEmpty());
     }
 
 }

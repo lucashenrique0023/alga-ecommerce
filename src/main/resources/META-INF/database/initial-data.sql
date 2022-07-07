@@ -1,7 +1,23 @@
-insert into item (id, name, price, created_date, description) values (1, 'Kindle', 499.0, date_sub(sysdate(), interval 1 day),'Conheça o novo Kindle, agora com iluminação embutida ajustável, que permite que você leia em ambientes abertos ou fechados, a qualquer hora do dia.');
-insert into item (id, name, price, created_date,description) values (3, 'Camera GoPro', 1499.0, date_sub(sysdate(), interval 1 day), 'Uma boa camera.');
-insert into item (id, name, price, created_date,description) values (4, 'Camera GoPro 2', 2499.0, date_sub(sysdate(), interval 1 day), 'Hell YEAH Camera.');
-insert into item (id, name, price, created_date,description) values (5, 'Camera GoPro 3', 3499.0, date_sub(sysdate(), interval 1 day), 'Holy Fuck Camera.');
+insert into item (id, name, price, created_date, description) values (1, 'Kindle', 499.0, date_sub(sysdate(), interval 1 day),'Nice Gadget');
+insert into item (id, name, price, created_date,description) values (3, 'Camera GoPro', 1499.0, date_sub(sysdate(), interval 1 day), 'Good Gamera.');
+insert into item (id, name, price, created_date,description) values (4, 'Google Pixel', 2499.0, date_sub(sysdate(), interval 1 day), 'Good Smartphone.');
+insert into item (id, name, price, created_date,description) values (5, 'Sandwich', 3499.0, date_sub(sysdate(), interval 1 day), 'Good Sandwich');
+
+insert into category (id,name) values (1, 'Electronics');
+insert into category (id,name) values (2, 'Book');
+insert into category (id,name) values (3, 'Football');
+insert into category (id,name) values (4, 'Food');
+insert into category (id,name) values (5, 'Swimming');
+insert into category (id,name) values (6, 'Laptop');
+insert into category (id,name) values (7, 'Kitchen');
+insert into category (id,name) values (8, 'Smartphones');
+
+insert into item_category (item_id, category_id) values (1, 1)
+insert into item_category (item_id, category_id) values (1, 2)
+insert into item_category (item_id, category_id) values (3, 1)
+insert into item_category (item_id, category_id) values (4, 1)
+insert into item_category (item_id, category_id) values (4, 8)
+insert into item_category (item_id, category_id) values (5, 4)
 
 insert into client (id, name, cpf) values (1, "Lucas Souza", "105");
 insert into client (id, name, cpf) values (2, "Henrique Vasconcelos", "123");
@@ -19,6 +35,8 @@ insert into orderr (id, client_id, created_date, last_modify_date, total, status
 insert into orderr (id, client_id, created_date, last_modify_date, total, status) values (4, 3, date_sub(sysdate(), interval 3 day), date_sub(sysdate(), interval 3 day), 449.0, 'WAITING');
 insert into orderr (id, client_id, created_date, last_modify_date, total, status) values (5, 3, date_sub(sysdate(), interval 4 day), date_sub(sysdate(), interval 4 day), 449.0, 'WAITING');
 insert into orderr (id, client_id, created_date, last_modify_date, total, status) values (6, 4, date_sub(sysdate(), interval 5 day), date_sub(sysdate(), interval 5 day), 3499.0, 'WAITING');
+insert into orderr (id, client_id, created_date, last_modify_date, total, status) values (7, 4, date_sub(sysdate(), interval 500 day), date_sub(sysdate(), interval 5 day), 3499.0, 'WAITING');
+insert into orderr (id, client_id, created_date, last_modify_date, total, status) values (8, 4, date_sub(sysdate(), interval 900 day), date_sub(sysdate(), interval 5 day), 3499.0, 'WAITING');
 
 insert into order_item (order_id, item_id, item_price, amount) values (1, 1, 499.0, 2);
 insert into order_item (order_id, item_id, item_price, amount) values (1, 3, 499.0, 1);
@@ -31,13 +49,5 @@ insert into order_item (order_id, item_id, item_price, amount) values (6, 5, 349
 insert into payment(payment_type, order_id, status, card_number) values ('creditcard' ,1, 'PROCESSING', '123412341234')
 insert into invoice(order_id, xml, emission_date) values (1, "<>", sysdate());
 
-insert into category (name) values ('Electronics');
-insert into category (name) values ('Book');
-insert into category (name) values ('Football');
-insert into category (name) values ('Food');
-insert into category (name) values ('Swimming');
-insert into category (name) values ('Laptop');
-insert into category (name) values ('Kitchen');
-insert into category (name) values ('Smartphones');
 
-insert into item_category (item_id, category_id) values (1, 2)
+
