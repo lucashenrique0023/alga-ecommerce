@@ -23,9 +23,25 @@ public class GroupBy extends EntityManagerTest {
 
 
         // Total price of orders by month grouped by year and month
-        String jpql = "select concat(year(o.createDate) ,' ', function('monthname', o.createDate)), sum(o.total) " +
+//        String jpql = "select concat(year(o.createDate) ,' ', function('monthname', o.createDate)), sum(o.total) " +
+//                " from Order o " +
+//                " group by year(o.createDate), month(o.createDate)";
+
+        // Total sales by client
+        //String jpql = "select c.name, sum(o.total) from Order o join o.client c group by c.name";
+
+        // Total sales by day and category
+        String jpql = "select " +
+                " concat(year(o.createDate), '/', month(o.createDate), '/', day(o.createDate)), " +
+                " concat(cat.name, ': ', sum(o.total)) " +
                 " from Order o " +
-                " group by year(o.createDate), month(o.createDate)";
+                " join o.items oi " +
+                " join oi.item item " +
+                " join item.categories cat " +
+                " group by year(o.createDate), month(o.createDate), day(o.createDate), cat.id " +
+                " order by o.createDate, cat.name";
+
+
 
         TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
         List<Object[]> list = typedQuery.getResultList();
