@@ -34,6 +34,7 @@ insert into invoice(order_id, xml, emission_date) values (1, "<>", sysdate());
 insert into category (name) values ('Electronics');
 insert into category (name) values ('Book');
 insert into category (name) values ('Football');
+insert into category (name) values ('Food');
 insert into category (name) values ('Swimming');
 insert into category (name) values ('Laptop');
 insert into category (name) values ('Kitchen');
