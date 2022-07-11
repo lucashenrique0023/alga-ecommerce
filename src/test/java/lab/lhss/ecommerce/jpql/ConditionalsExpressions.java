@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import javax.persistence.TypedQuery;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 public class ConditionalsExpressions extends EntityManagerTest {
@@ -75,6 +76,28 @@ public class ConditionalsExpressions extends EntityManagerTest {
         Assert.assertFalse(list.isEmpty());
 
         list.forEach(arr -> System.out.println(arr[0] + ", " + arr[1]));
+    }
+
+    @Test
+    public void findWithIN() {
+
+        Client client1 = new Client();
+        client1.setId(1);
+
+        Client client2 = new Client();
+        client2.setId(2);
+
+        List<Client> clients = Arrays.asList(client1);
+
+        String jpql = "Select o from Order o where o.client IN (:clients)";
+
+        TypedQuery<Order> typedQuery = entityManager.createQuery(jpql, Order.class);
+
+        // At least one client must be passed as parameter, or syntax error will be thrown.
+        typedQuery.setParameter("clients", clients);
+        List<Order> list = typedQuery.getResultList();
+
+        Assert.assertFalse(list.isEmpty());
     }
 
 }
