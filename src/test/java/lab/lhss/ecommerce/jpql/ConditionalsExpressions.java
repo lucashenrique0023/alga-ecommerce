@@ -7,11 +7,8 @@ import lab.lhss.ecommerce.model.Order;
 import org.junit.Assert;
 import org.junit.Test;
 
-import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 public class ConditionalsExpressions extends EntityManagerTest {
@@ -59,6 +56,25 @@ public class ConditionalsExpressions extends EntityManagerTest {
         typedQuery.setParameter("date", LocalDateTime.now().minusDays(2));
         List<Order> list = typedQuery.getResultList();
         Assert.assertFalse(list.isEmpty());
+    }
+
+    @Test
+    public void findWithCase() {
+
+        String jpql = "select o.id, " +
+                " case type(o.payment) " +
+                " when CreditCardPayment then 'Paid with credit card.' " +
+                " when BankSlipPayment then 'Paid with bank slip.' " +
+                " else 'Not paid yet.' " +
+                " end " +
+                " from Order o left join o.payment p";
+
+        TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
+
+        List<Object[]> list = typedQuery.getResultList();
+        Assert.assertFalse(list.isEmpty());
+
+        list.forEach(arr -> System.out.println(arr[0] + ", " + arr[1]));
     }
 
 }
