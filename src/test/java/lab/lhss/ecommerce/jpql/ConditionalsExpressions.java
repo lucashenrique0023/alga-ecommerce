@@ -91,10 +91,16 @@ public class ConditionalsExpressions extends EntityManagerTest {
 
         String jpql = "Select o from Order o where o.client IN (:clients)";
 
-        TypedQuery<Order> typedQuery = entityManager.createQuery(jpql, Order.class);
+        // Retrieve All Orders that have products with Category ID 2.
+        String jpql2 = "Select o from Order o where o in " +
+                " (select oi.order from OrderItem oi where oi.item in " +
+                    " (select i2 from Item i2 join i2.categories c where c.id = 2 )" +
+                "  )";
+
+        TypedQuery<Order> typedQuery = entityManager.createQuery(jpql2, Order.class);
 
         // At least one client must be passed as parameter, or syntax error will be thrown.
-        typedQuery.setParameter("clients", clients);
+        //typedQuery.setParameter("clients", clients);
         List<Order> list = typedQuery.getResultList();
 
         Assert.assertFalse(list.isEmpty());
@@ -116,16 +122,24 @@ public class ConditionalsExpressions extends EntityManagerTest {
     public void subqueries() {
 
         String jpql = "select c from Client c where " +
-                " 500 < (select sum(o.total) from Order o where o.client = c";
+                " 500 < (select sum(o.total) from Order o where o.client = c)";
 
         String jpql2 = "select c from Client c " +
-                " 500 < (select sum(o.total) from c.orders p";
+                " 500 < (select sum(o.total) from c.orders p)";
 
         String jpql3 = "select o from Order o where " +
                 " o.total > (select avg(total) from Order)";
 
         String jpql4 = "select i from Item i where " +
                 " i.price = (select max(proce) from Item)";
+
+        // Select Clients that made at least 2 orders!
+        String jpql5 = "select c from Client c where (select count(o.id) from Order o where o.client = c) >= 2";
+
+        // Select all items that was not ordered after it price changes
+        String jpql6 = "select i from Item where exists (" +
+                " select 1 from OrderItem oi where oi.item = i and oi.itemPrice <> i.price; " +
+                ")";
     }
 
     @Test
