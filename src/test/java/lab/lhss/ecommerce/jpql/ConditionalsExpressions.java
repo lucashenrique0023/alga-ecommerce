@@ -100,4 +100,16 @@ public class ConditionalsExpressions extends EntityManagerTest {
         Assert.assertFalse(list.isEmpty());
     }
 
+    @Test
+    public void selectDistinct() {
+     String jpql = "select distinct o from Order o" +
+             " join o.items i";
+
+     TypedQuery<Order> typedQuery = entityManager.createQuery(jpql, Order.class);
+     List<Order> list = typedQuery.getResultList();
+
+     Assert.assertFalse(list.isEmpty());
+     System.out.println(list.size());
+    }
+
 }
