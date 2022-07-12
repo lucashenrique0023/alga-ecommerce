@@ -128,4 +128,12 @@ public class ConditionalsExpressions extends EntityManagerTest {
                 " i.price = (select max(proce) from Item)";
     }
 
+    @Test
+    public void queryWithExists() {
+
+        String jpql = "select i from Item i where exists " +
+                "(select 1 from OrderItem oi join oi.i i2 where i2 = i)";
+
+    }
+
 }
