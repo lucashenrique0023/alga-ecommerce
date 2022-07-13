@@ -42,7 +42,7 @@ insert into order_item (order_id, item_id, item_price, amount) values (1, 1, 499
 insert into order_item (order_id, item_id, item_price, amount) values (1, 3, 499.0, 1);
 insert into order_item (order_id, item_id, item_price, amount) values (2, 1, 499.0, 1);
 insert into order_item (order_id, item_id, item_price, amount) values (3, 1, 499.0, 1);
-insert into order_item (order_id, item_id, item_price, amount) values (4, 3, 499.0, 1);
+insert into order_item (order_id, item_id, item_price, amount) values (4, 3, 1499.0, 1);
 insert into order_item (order_id, item_id, item_price, amount) values (6, 5, 3499.0, 1);
 
 
