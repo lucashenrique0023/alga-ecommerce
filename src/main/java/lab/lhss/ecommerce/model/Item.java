@@ -13,6 +13,10 @@ import java.util.List;
 @EntityListeners({GenericListener.class})
 @Getter
 @Setter
+@NamedQueries({
+        @NamedQuery(name = "Item.listAll", query = "select i from Item i"),
+        @NamedQuery(name = "Item.listByCategory", query = "select i from Item i where exists (select 1 from Category c join c.items i2 where i2 = i and c.id = :category)")
+})
 @Table(name = "item",
         uniqueConstraints = @UniqueConstraint(name = "unq_name", columnNames = {"name"} ),
         indexes = { @Index(name = "idx_name", columnList = "name") })
