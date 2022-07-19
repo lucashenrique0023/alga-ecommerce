@@ -1,12 +1,14 @@
 package lab.lhss.ecommerce.criteria;
 
 import lab.lhss.ecommerce.EntityManagerTest;
+import lab.lhss.ecommerce.dto.ItemDTO;
 import lab.lhss.ecommerce.model.Client;
 import lab.lhss.ecommerce.model.Item;
 import lab.lhss.ecommerce.model.Order;
 import org.junit.Assert;
 import org.junit.Test;
 
+import javax.persistence.Tuple;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -43,5 +45,55 @@ public class BasicCriteriaTest extends EntityManagerTest {
         TypedQuery<Client> typedQuery = entityManager.createQuery(criteriaQuery);
         Client client = typedQuery.getSingleResult();
         Assert.assertNotNull(client);
+    }
+
+    @Test
+    public void projection() {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Object[]> criteriaQuery = criteriaBuilder.createQuery(Object[].class);
+        Root<Item> root = criteriaQuery.from(Item.class);
+
+        criteriaQuery.multiselect(root.get("id"), root.get("name"));
+
+        TypedQuery<Object[]> typedQuery = entityManager.createQuery(criteriaQuery);
+        List<Object[]> list = typedQuery.getResultList();
+        Assert.assertFalse(list.isEmpty());
+
+        list.forEach(arr -> System.out.println("ID: " + arr[0] + " Name: " + arr[1]));
+    }
+
+    @Test
+    public void projectionWithTuple() {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Tuple> criteriaQuery = criteriaBuilder.createTupleQuery();
+        Root<Item> root = criteriaQuery.from(Item.class);
+
+        criteriaQuery.select(criteriaBuilder
+                .tuple(root.get("id").alias("id"), root.get("name").alias("name"))
+        );
+
+        TypedQuery<Tuple> typedQuery = entityManager.createQuery(criteriaQuery);
+        List<Tuple> list = typedQuery.getResultList();
+        Assert.assertFalse(list.isEmpty());
+
+        list.forEach(t -> System.out.println("ID: " + t.get("id") + " Name: " + t.get("name")));
+    }
+
+    @Test
+    public void projectionWithDTO() {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<ItemDTO> criteriaQuery = criteriaBuilder.createQuery(ItemDTO.class);
+        Root<Item> root = criteriaQuery.from(Item.class);
+
+        criteriaQuery.select(criteriaBuilder.construct(
+                ItemDTO.class,
+                root.get("id"),
+                root.get("name")));
+
+        TypedQuery<ItemDTO> typedQuery = entityManager.createQuery(criteriaQuery);
+        List<ItemDTO> list = typedQuery.getResultList();
+        Assert.assertFalse(list.isEmpty());
+
+        list.forEach(i -> System.out.println("ID: " + i.getId() + " Name: " + i.getName()));
     }
 }
