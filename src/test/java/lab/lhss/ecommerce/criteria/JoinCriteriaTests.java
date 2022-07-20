@@ -2,14 +2,12 @@ package lab.lhss.ecommerce.criteria;
 
 import lab.lhss.ecommerce.EntityManagerTest;
 import lab.lhss.ecommerce.model.*;
+import lab.lhss.ecommerce.model.Order;
 import org.junit.Assert;
 import org.junit.Test;
 
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.util.List;
 
 public class JoinCriteriaTests extends EntityManagerTest {
@@ -64,7 +62,23 @@ public class JoinCriteriaTests extends EntityManagerTest {
         TypedQuery<Order> typedQuery = entityManager.createQuery(criteriaQuery);
         List<Order> list = typedQuery.getResultList();
         Assert.assertFalse(list.isEmpty());
+    }
 
+    @Test
+    public void leftJoin() {
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Order> criteriaQuery = criteriaBuilder.createQuery(Order.class);
+        Root<Order> root = criteriaQuery.from(Order.class);
+
+        Join<Order, Payment> joinOrderPayment = root.join("payment", JoinType.LEFT);
+        joinOrderPayment.on(criteriaBuilder.equal(joinOrderPayment.get("status"), PaymentStatus.RECEIVED));
+
+        criteriaQuery.select(root);
+
+        TypedQuery<Order> typedQuery = entityManager.createQuery(criteriaQuery);
+        List<Order> list = typedQuery.getResultList();
+        Assert.assertFalse(list.isEmpty());
 
     }
 
