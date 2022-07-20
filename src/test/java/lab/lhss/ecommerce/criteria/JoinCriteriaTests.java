@@ -49,4 +49,23 @@ public class JoinCriteriaTests extends EntityManagerTest {
         System.out.println(item.getName());
     }
 
+    @Test
+    public void joinWithONClause() {
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Order> criteriaQuery = criteriaBuilder.createQuery(Order.class);
+        Root<Order> root = criteriaQuery.from(Order.class);
+
+        Join<Order, Payment> joinOrderPayment = root.join("payment");
+        joinOrderPayment.on(criteriaBuilder.equal(joinOrderPayment.get("status"), PaymentStatus.RECEIVED));
+
+        criteriaQuery.select(root);
+
+        TypedQuery<Order> typedQuery = entityManager.createQuery(criteriaQuery);
+        List<Order> list = typedQuery.getResultList();
+        Assert.assertFalse(list.isEmpty());
+
+
+    }
+
 }

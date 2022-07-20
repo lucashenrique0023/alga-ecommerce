@@ -48,6 +48,9 @@ insert into order_item (order_id, item_id, item_price, amount) values (6, 5, 349
 
 insert into payment(payment_type, order_id, status, card_number) values ('creditcard' ,1, 'PROCESSING', '123412341234')
 insert into payment(payment_type, order_id, status, card_number) values ('creditcard' ,2, 'CANCELED', '123412341234')
+insert into payment(payment_type, order_id, status, card_number) values ('creditcard' ,3, 'CANCELED', '123412341234')
+insert into payment(payment_type, order_id, status, card_number) values ('creditcard' ,4, 'PROCESSING', '123412341234')
+insert into payment(payment_type, order_id, status, card_number) values ('creditcard' ,5, 'RECEIVED', '123412341234')
 insert into invoice(order_id, xml, emission_date) values (1, "<>", sysdate());
 
 
