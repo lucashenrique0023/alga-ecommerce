@@ -90,10 +90,33 @@ public class JoinCriteriaTests extends EntityManagerTest {
         Root<Order> root = criteriaQuery.from(Order.class);
         root.fetch("payment", JoinType.LEFT);
         root.fetch("invoice", JoinType.LEFT);
-        Join<Order, Client> joinClient = (Join<Order, Client>) root.<Order, Client>fetch("client");
-        //root.fetch("client");
+        // We use fetch this way when we need to select this fetch : criteriaQuery.select(joinClient);
+        //Join<Order, Client> joinClient = (Join<Order, Client>) root.<Order, Client>fetch("client");
+        root.fetch("client");
 
         criteriaQuery.select(root);
+
+        TypedQuery<Order> typedQuery = entityManager.createQuery(criteriaQuery);
+        List<Order> list = typedQuery.getResultList();
+        Assert.assertFalse(list.isEmpty());
+    }
+
+    @Test
+    public void findOrdersByProductId() {
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Order> criteriaQuery = criteriaBuilder.createQuery(Order.class);
+        Root<Order> root = criteriaQuery.from(Order.class);
+
+        Join<Order, OrderItem> joinOrderItem = root.join("items");
+        // We use fetch this way when we need to select this fetch : criteriaQuery.select(joinClient);
+        // Join<Order, Client> joinClient = (Join<Order, Client>) root.<Order, Client>fetch("client");
+        root.fetch("client");
+        root.fetch("invoice", JoinType.LEFT);
+        root.fetch("payment", JoinType.LEFT);
+
+        criteriaQuery.select(root);
+        criteriaQuery.where(criteriaBuilder.equal(joinOrderItem.get("item").get("id"), 1));
 
         TypedQuery<Order> typedQuery = entityManager.createQuery(criteriaQuery);
         List<Order> list = typedQuery.getResultList();
