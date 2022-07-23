@@ -1,9 +1,8 @@
 package lab.lhss.ecommerce.criteria;
 
 import lab.lhss.ecommerce.EntityManagerTest;
-import lab.lhss.ecommerce.model.Item;
+import lab.lhss.ecommerce.model.*;
 import lab.lhss.ecommerce.model.Item_;
-import lab.lhss.ecommerce.model.Order;
 import lab.lhss.ecommerce.model.Order_;
 import org.junit.Assert;
 import org.junit.Test;
@@ -110,6 +109,30 @@ public class ConditionalExpressionsWithCriteria extends EntityManagerTest {
         criteriaQuery.select(root);
 
         criteriaQuery.where(criteriaBuilder.between(root.get(Order_.total), new BigDecimal(500), new BigDecimal(2000)));
+
+        TypedQuery<Order> typedQuery = entityManager.createQuery(criteriaQuery);
+        List<Order> list = typedQuery.getResultList();
+        Assert.assertFalse(list.isEmpty());
+    }
+
+    @Test
+    public void logicalOperators() {
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Order> criteriaQuery = criteriaBuilder.createQuery(Order.class);
+        Root<Order> root = criteriaQuery.from(Order.class);
+
+        criteriaQuery.select(root);
+
+        criteriaQuery.where(
+                criteriaBuilder.or(
+                        criteriaBuilder.equal(root.get(Order_.STATUS), OrderStatus.WAITING),
+                        criteriaBuilder.equal(root.get(Order_.STATUS), OrderStatus.PAID)
+                ),
+                criteriaBuilder.greaterThan(root.get(Order_.TOTAL), new BigDecimal(499))
+        );
+
+        // jpql = select o from Order o where (status = 'WAITING' or status = 'PAID') and total > 499;
 
         TypedQuery<Order> typedQuery = entityManager.createQuery(criteriaQuery);
         List<Order> list = typedQuery.getResultList();
