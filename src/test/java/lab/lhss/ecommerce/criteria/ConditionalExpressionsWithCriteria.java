@@ -3,15 +3,21 @@ package lab.lhss.ecommerce.criteria;
 import lab.lhss.ecommerce.EntityManagerTest;
 import lab.lhss.ecommerce.model.Item;
 import lab.lhss.ecommerce.model.Item_;
+import lab.lhss.ecommerce.model.Order;
+import lab.lhss.ecommerce.model.Order_;
 import org.junit.Assert;
 import org.junit.Test;
 
+import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Root;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.List;
 
 public class ConditionalExpressionsWithCriteria extends EntityManagerTest {
@@ -78,4 +84,19 @@ public class ConditionalExpressionsWithCriteria extends EntityManagerTest {
         Assert.assertFalse(list.isEmpty());
     }
 
+    @Test
+    public void conditionalGreaterThanWithDate() {
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Order> criteriaQuery = criteriaBuilder.createQuery(Order.class);
+        Root<Order> root = criteriaQuery.from(Order.class);
+
+        criteriaQuery.select(root);
+
+        criteriaQuery.where(criteriaBuilder.greaterThanOrEqualTo(root.get(Order_.CREATE_DATE), LocalDateTime.now().minusDays(3)));
+
+        TypedQuery<Order> typedQuery = entityManager.createQuery(criteriaQuery);
+        List<Order> list = typedQuery.getResultList();
+        Assert.assertFalse(list.isEmpty());
+    }
 }
