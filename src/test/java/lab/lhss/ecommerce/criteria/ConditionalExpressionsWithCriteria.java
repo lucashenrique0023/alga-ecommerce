@@ -2,6 +2,7 @@ package lab.lhss.ecommerce.criteria;
 
 import lab.lhss.ecommerce.EntityManagerTest;
 import lab.lhss.ecommerce.model.*;
+import lab.lhss.ecommerce.model.Client_;
 import lab.lhss.ecommerce.model.Item_;
 import lab.lhss.ecommerce.model.Order_;
 import org.junit.Assert;
@@ -136,6 +137,21 @@ public class ConditionalExpressionsWithCriteria extends EntityManagerTest {
 
         TypedQuery<Order> typedQuery = entityManager.createQuery(criteriaQuery);
         List<Order> list = typedQuery.getResultList();
+        Assert.assertFalse(list.isEmpty());
+    }
+
+    @Test
+    public void orderBy() {
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Client> criteriaQuery = criteriaBuilder.createQuery(Client.class);
+        Root<Client> root = criteriaQuery.from(Client.class);
+
+        criteriaQuery.select(root);
+        criteriaQuery.orderBy(criteriaBuilder.asc(root.get(Client_.NAME)));
+
+        TypedQuery<Client> typedQuery = entityManager.createQuery(criteriaQuery);
+        List<Client> list = typedQuery.getResultList();
         Assert.assertFalse(list.isEmpty());
     }
 }
