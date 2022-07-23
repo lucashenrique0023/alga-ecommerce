@@ -31,4 +31,6 @@ public class MetaModelTests extends EntityManagerTest {
         List<Item> list = typedQuery.getResultList();
         Assert.assertFalse(list.isEmpty());
     }
+
+
 }
