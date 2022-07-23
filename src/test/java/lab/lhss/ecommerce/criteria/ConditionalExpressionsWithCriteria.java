@@ -99,4 +99,20 @@ public class ConditionalExpressionsWithCriteria extends EntityManagerTest {
         List<Order> list = typedQuery.getResultList();
         Assert.assertFalse(list.isEmpty());
     }
+
+    @Test
+    public void conditionalBetween() {
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Order> criteriaQuery = criteriaBuilder.createQuery(Order.class);
+        Root<Order> root = criteriaQuery.from(Order.class);
+
+        criteriaQuery.select(root);
+
+        criteriaQuery.where(criteriaBuilder.between(root.get(Order_.total), new BigDecimal(500), new BigDecimal(2000)));
+
+        TypedQuery<Order> typedQuery = entityManager.createQuery(criteriaQuery);
+        List<Order> list = typedQuery.getResultList();
+        Assert.assertFalse(list.isEmpty());
+    }
 }
