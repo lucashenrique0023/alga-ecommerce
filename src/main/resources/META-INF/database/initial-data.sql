@@ -44,6 +44,7 @@ insert into order_item (order_id, item_id, item_price, amount) values (2, 1, 499
 insert into order_item (order_id, item_id, item_price, amount) values (3, 1, 499.0, 1);
 insert into order_item (order_id, item_id, item_price, amount) values (4, 3, 1499.0, 1);
 insert into order_item (order_id, item_id, item_price, amount) values (6, 5, 3499.0, 1);
+insert into order_item (order_id, item_id, item_price, amount) values (7, 5, 3499.0, 1);
 
 
 insert into payment(payment_type, order_id, status, card_number) values ('creditcard' ,1, 'PROCESSING', '123412341234')
@@ -51,6 +52,8 @@ insert into payment(payment_type, order_id, status, card_number) values ('credit
 insert into payment(payment_type, order_id, status, card_number) values ('creditcard' ,3, 'CANCELED', '123412341234')
 insert into payment(payment_type, order_id, status, card_number) values ('creditcard' ,4, 'PROCESSING', '123412341234')
 insert into payment(payment_type, order_id, status, card_number) values ('creditcard' ,5, 'RECEIVED', '123412341234')
+insert into payment(payment_type, order_id, status, bar_code, due_date) values ('bankslip' ,6, 'PROCESSING', '456', date_add(sysdate(), interval 1 day))
+insert into payment(payment_type, order_id, status, bar_code, due_date) values ('bankslip' ,7, 'PROCESSING', '456', date_sub(sysdate(), interval 5 day))
 insert into invoice(order_id, xml, emission_date) values (1, "<>", sysdate());
 
 
