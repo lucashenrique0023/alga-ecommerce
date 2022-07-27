@@ -115,4 +115,33 @@ public class FunctionsCriteriaTests extends EntityManagerTest {
         list.forEach(arr -> System.out.println("Order Id: " + arr[0] + ", dayname: " + arr[1]));
 
     }
+
+    @Test
+    public void aggregationFunctions() {
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Object[]> criteriaQuery = criteriaBuilder.createQuery(Object[].class);
+        Root<Order> root = criteriaQuery.from(Order.class);
+
+        criteriaQuery.multiselect(
+                criteriaBuilder.count(root.get(Order_.ID)),
+                criteriaBuilder.avg(root.get(Order_.TOTAL)),
+                criteriaBuilder.sum(root.get(Order_.TOTAL)),
+                criteriaBuilder.min(root.get(Order_.TOTAL)),
+                criteriaBuilder.max(root.get(Order_.TOTAL)));
+
+        TypedQuery<Object[]> typedQuery = entityManager.createQuery(criteriaQuery);
+        List<Object[]> list = typedQuery.getResultList();
+        Assert.assertFalse(list.isEmpty());
+
+        list.forEach(arr -> System.out.println(
+                "Order Amount: " + arr[0]
+                + "\nPrice Average: " + arr[1]
+                + "\nTotal Sum: " + arr[2]
+                + "\nMin Order Total: " + arr[3]
+                + "\nMax Order Total: " + arr[4]
+        ));
+    }
+
+
 }
