@@ -92,4 +92,27 @@ public class FunctionsCriteriaTests extends EntityManagerTest {
         });
     }
 
+    @Test
+    public void nativeFunctionTests() {
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Object[]> criteriaQuery = criteriaBuilder.createQuery(Object[].class);
+        Root<Order> root = criteriaQuery.from(Order.class);
+
+        criteriaQuery.multiselect(
+                root.get(Order_.ID),
+                criteriaBuilder.function("dayname", String.class, root.get(Order_.CREATE_DATE))
+        );
+
+        criteriaQuery.where(criteriaBuilder.isTrue(
+                criteriaBuilder.function("order_above_average_total", Boolean.class, root.get(Order_.TOTAL))));
+
+        TypedQuery<Object[]> typedQuery = entityManager.createQuery(criteriaQuery);
+
+        List<Object[]> list = typedQuery.getResultList();
+        Assert.assertFalse(list.isEmpty());
+
+        list.forEach(arr -> System.out.println("Order Id: " + arr[0] + ", dayname: " + arr[1]));
+
+    }
 }
