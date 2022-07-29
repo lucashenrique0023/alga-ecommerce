@@ -29,11 +29,11 @@ insert into client_details (client_id,gender, birth_date) values (2, "MALE", dat
 insert into client_details (client_id,gender, birth_date) values (3, "MALE", date_sub(sysdate(), interval 32 year))
 insert into client_details (client_id,gender, birth_date) values (4, "FEMALE", date_sub(sysdate(), interval 12 year))
 
-insert into orderr (id, client_id, created_date, last_modify_date, total, status) values (1, 1, sysdate(), sysdate(), 1497.0, 'WAITING');
-insert into orderr (id, client_id, created_date, last_modify_date, total, status) values (2, 1, date_sub(sysdate(), interval 1 day), date_sub(sysdate(), interval 1 day), 449.0, 'WAITING');
-insert into orderr (id, client_id, created_date, last_modify_date, total, status) values (3, 2, date_sub(sysdate(), interval 2 day), date_sub(sysdate(), interval 2 day), 449.0, 'WAITING');
-insert into orderr (id, client_id, created_date, last_modify_date, total, status) values (4, 3, date_sub(sysdate(), interval 3 day), date_sub(sysdate(), interval 3 day), 449.0, 'WAITING');
-insert into orderr (id, client_id, created_date, last_modify_date, total, status) values (5, 3, date_sub(sysdate(), interval 4 day), date_sub(sysdate(), interval 4 day), 449.0, 'WAITING');
+insert into orderr (id, client_id, created_date, last_modify_date, total, status) values (1, 1, sysdate(), sysdate(), 998.0, 'WAITING');
+insert into orderr (id, client_id, created_date, last_modify_date, total, status) values (2, 1, date_sub(sysdate(), interval 1 day), date_sub(sysdate(), interval 1 day), 499.0, 'WAITING');
+insert into orderr (id, client_id, created_date, last_modify_date, total, status) values (3, 2, date_sub(sysdate(), interval 2 day), date_sub(sysdate(), interval 2 day), 499.0, 'WAITING');
+insert into orderr (id, client_id, created_date, last_modify_date, total, status) values (4, 3, date_sub(sysdate(), interval 3 day), date_sub(sysdate(), interval 3 day), 1499.0, 'WAITING');
+insert into orderr (id, client_id, created_date, last_modify_date, total, status) values (5, 3, date_sub(sysdate(), interval 4 day), date_sub(sysdate(), interval 4 day), 1499.0, 'WAITING');
 insert into orderr (id, client_id, created_date, last_modify_date, total, status) values (6, 4, date_sub(sysdate(), interval 5 day), date_sub(sysdate(), interval 5 day), 3499.0, 'WAITING');
 insert into orderr (id, client_id, created_date, last_modify_date, total, status) values (7, 4, date_sub(sysdate(), interval 500 day), date_sub(sysdate(), interval 5 day), 3499.0, 'WAITING');
 insert into orderr (id, client_id, created_date, last_modify_date, total, status) values (8, 4, date_sub(sysdate(), interval 900 day), date_sub(sysdate(), interval 5 day), 3499.0, 'WAITING');
@@ -43,8 +43,10 @@ insert into order_item (order_id, item_id, item_price, amount) values (1, 3, 499
 insert into order_item (order_id, item_id, item_price, amount) values (2, 1, 499.0, 1);
 insert into order_item (order_id, item_id, item_price, amount) values (3, 1, 499.0, 1);
 insert into order_item (order_id, item_id, item_price, amount) values (4, 3, 1499.0, 1);
+insert into order_item (order_id, item_id, item_price, amount) values (5, 3, 1499.0, 1);
 insert into order_item (order_id, item_id, item_price, amount) values (6, 5, 3499.0, 1);
 insert into order_item (order_id, item_id, item_price, amount) values (7, 5, 3499.0, 1);
+insert into order_item (order_id, item_id, item_price, amount) values (8, 5, 3499.0, 1);
 
 
 insert into payment(payment_type, order_id, status, card_number) values ('creditcard' ,1, 'PROCESSING', '123412341234')
