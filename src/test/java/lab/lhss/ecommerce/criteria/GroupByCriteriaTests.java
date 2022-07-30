@@ -125,4 +125,44 @@ public class GroupByCriteriaTests extends EntityManagerTest {
                 }
         );
     }
+
+    @Test
+    public void groupByWithFunctions() {
+        /* JPQL Example
+        String jpql = "select concat(year(o.createDate) ,' ', function('monthname', o.createDate)), sum(o.total) " +
+        " from Order o " +
+        " group by year(o.createDate), month(o.createDate)";
+         */
+        /*
+        2022 July : 8493.00
+        2021 March : 3499.00
+        2020 February : 3499.00
+         */
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Object[]> criteriaQuery = criteriaBuilder.createQuery(Object[].class);
+        Root<Order> root = criteriaQuery.from(Order.class);
+
+        Expression<Integer> yearOrderCreation = criteriaBuilder.function("year", Integer.class, root.get(Order_.CREATE_DATE));
+        Expression<Integer> monthOrderCreation = criteriaBuilder.function("month", Integer.class, root.get(Order_.CREATE_DATE));
+        Expression<String>  monthNameOrderCreation = criteriaBuilder.function("monthname", String.class, root.get(Order_.CREATE_DATE));
+
+        Expression<String> yearMonthConcat = criteriaBuilder.concat(criteriaBuilder.concat(yearOrderCreation.as(String.class), "/"), monthNameOrderCreation);
+
+        criteriaQuery.multiselect(
+                yearMonthConcat,
+                criteriaBuilder.sum(root.get(Order_.TOTAL))
+        );
+
+        criteriaQuery.groupBy(yearOrderCreation, monthOrderCreation);
+
+        TypedQuery<Object[]> typedQuery = entityManager.createQuery(criteriaQuery);
+        List<Object[]> list = typedQuery.getResultList();
+        Assert.assertFalse(list.isEmpty());
+
+        list.forEach(arr -> {
+            System.out.println("Year/Month: " + arr[0] + ", Sum: " + arr[1]);
+        });
+
+    }
 }
