@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
+import java.math.BigDecimal;
 import java.util.List;
 
 public class GroupByCriteriaTests extends EntityManagerTest {
@@ -163,6 +164,33 @@ public class GroupByCriteriaTests extends EntityManagerTest {
         list.forEach(arr -> {
             System.out.println("Year/Month: " + arr[0] + ", Sum: " + arr[1]);
         });
+
+    }
+
+    @Test
+    public void getCategoriesBySalesAverageMinimumValue() {
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Object[]> criteriaQuery = criteriaBuilder.createQuery(Object[].class);
+        Root<OrderItem> root = criteriaQuery.from(OrderItem.class);
+
+        Join<OrderItem, Item> joinItem = root.join(OrderItem_.ITEM);
+        Join<Item, Category> joinCategory = joinItem.join(Item_.CATEGORIES);
+
+        criteriaQuery.multiselect(
+                joinCategory.get(Category_.NAME),
+                criteriaBuilder.sum(root.get(OrderItem_.ITEM_PRICE)),
+                criteriaBuilder.avg(root.get(OrderItem_.ITEM_PRICE))
+        );
+
+        criteriaQuery.groupBy(joinCategory.get(Category_.NAME));
+        criteriaQuery.having(criteriaBuilder.greaterThan(
+                criteriaBuilder.avg(
+                        root.get(OrderItem_.ITEM_PRICE)).as(BigDecimal.class), new BigDecimal(500)));
+
+        TypedQuery<Object[]> typedQuery = entityManager.createQuery(criteriaQuery);
+        List<Object[]> list = typedQuery.getResultList();
+        Assert.assertFalse(list.isEmpty());
 
     }
 }
