@@ -17,6 +17,7 @@ import javax.persistence.criteria.Root;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -182,5 +183,45 @@ public class ConditionalExpressionsWithCriteria extends EntityManagerTest {
             System.out.println(arr[0] + ", " + arr[1]);
         });
 
+    }
+
+    @Test
+    public void inExpressionWithIntegerList() {
+        List<Integer> idList = Arrays.asList(1, 2, 3);
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Order> criteriaQuery = criteriaBuilder.createQuery(Order.class);
+        Root<Order> root = criteriaQuery.from(Order.class);
+
+        criteriaQuery.select(root);
+
+        criteriaQuery.where(root.get(Order_.ID).in(idList));
+
+        TypedQuery<Order> typedQuery = entityManager.createQuery(criteriaQuery);
+        List<Order> list = typedQuery.getResultList();
+        Assert.assertFalse(list.isEmpty());
+    }
+
+    @Test
+    public void inExpressionWithEntity() {
+
+        Client client1 = entityManager.find(Client.class, 1);
+
+        Client client2 = new Client();
+        client2.setId(2);
+
+        List<Client> clientList = Arrays.asList(client1, client2);
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Order> criteriaQuery = criteriaBuilder.createQuery(Order.class);
+        Root<Order> root = criteriaQuery.from(Order.class);
+
+        criteriaQuery.select(root);
+
+        criteriaQuery.where(root.get(Order_.CLIENT).in(clientList));
+
+        TypedQuery<Order> typedQuery = entityManager.createQuery(criteriaQuery);
+        List<Order> list = typedQuery.getResultList();
+        Assert.assertFalse(list.isEmpty());
     }
 }
