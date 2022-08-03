@@ -224,4 +224,25 @@ public class ConditionalExpressionsWithCriteria extends EntityManagerTest {
         List<Order> list = typedQuery.getResultList();
         Assert.assertFalse(list.isEmpty());
     }
+
+    @Test
+    public void distinctTest() {
+        // Items is a collection on Order Entity,
+        // Orders results will be one line for each item
+        // We are going to use Distinct for Orders do not repeat on results for each item.
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Order> criteriaQuery = criteriaBuilder.createQuery(Order.class);
+        Root<Order> root = criteriaQuery.from(Order.class);
+        root.join(Order_.items);
+
+        criteriaQuery.select(root);
+        criteriaQuery.distinct(true);
+
+        TypedQuery<Order> typedQuery = entityManager.createQuery(criteriaQuery);
+        List<Order> list = typedQuery.getResultList();
+        Assert.assertFalse(list.isEmpty());
+
+        list.forEach(o -> System.out.println("ID: " + o.getId()));
+    }
 }
