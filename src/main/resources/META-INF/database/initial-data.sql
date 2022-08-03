@@ -35,8 +35,8 @@ insert into orderr (id, client_id, created_date, last_modify_date, total, status
 insert into orderr (id, client_id, created_date, last_modify_date, total, status) values (4, 3, date_sub(sysdate(), interval 3 day), date_sub(sysdate(), interval 3 day), 1499.0, 'WAITING');
 insert into orderr (id, client_id, created_date, last_modify_date, total, status) values (5, 3, date_sub(sysdate(), interval 4 day), date_sub(sysdate(), interval 4 day), 1499.0, 'WAITING');
 insert into orderr (id, client_id, created_date, last_modify_date, total, status) values (6, 4, date_sub(sysdate(), interval 5 day), date_sub(sysdate(), interval 5 day), 3499.0, 'WAITING');
-insert into orderr (id, client_id, created_date, last_modify_date, total, status) values (7, 4, date_sub(sysdate(), interval 500 day), date_sub(sysdate(), interval 5 day), 3499.0, 'WAITING');
-insert into orderr (id, client_id, created_date, last_modify_date, total, status) values (8, 4, date_sub(sysdate(), interval 900 day), date_sub(sysdate(), interval 5 day), 3499.0, 'WAITING');
+insert into orderr (id, client_id, created_date, last_modify_date, total, status) values (7, 4, date_sub(sysdate(), interval 500 day), date_sub(sysdate(), interval 5 day), 3499.0, 'CANCELED');
+insert into orderr (id, client_id, created_date, last_modify_date, total, status) values (8, 4, date_sub(sysdate(), interval 900 day), date_sub(sysdate(), interval 5 day), 3499.0, 'PAID');
 
 insert into order_item (order_id, item_id, item_price, amount) values (1, 1, 499.0, 2);
 insert into order_item (order_id, item_id, item_price, amount) values (1, 3, 499.0, 1);

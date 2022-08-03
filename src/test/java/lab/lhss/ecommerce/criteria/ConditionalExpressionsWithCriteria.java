@@ -154,4 +154,33 @@ public class ConditionalExpressionsWithCriteria extends EntityManagerTest {
         List<Client> list = typedQuery.getResultList();
         Assert.assertFalse(list.isEmpty());
     }
+
+    @Test
+    public void caseTests() {
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Object[]> criteriaQuery = criteriaBuilder.createQuery(Object[].class);
+        Root<Order> root = criteriaQuery.from(Order.class);
+
+        criteriaQuery.multiselect(
+               root.get(Order_.ID),
+//                criteriaBuilder.selectCase(root.get(Order_.STATUS))
+//                    .when(OrderStatus.PAID.toString(), "Was Paid!")
+//                    .when(OrderStatus.WAITING.toString(), "Is Waiting!")
+//                    .otherwise(root.get(Order_.STATUS))
+                criteriaBuilder.selectCase(root.get(Order_.payment).type().as(String.class))
+                    .when("bankslip","Was paid with Bankslip")
+                    .when("creditcard", "Was paid with Creditcard")
+                    .otherwise("Payment not identified.")
+        );
+
+        TypedQuery<Object[]> typedQuery = entityManager.createQuery(criteriaQuery);
+        List<Object[]> list = typedQuery.getResultList();
+        Assert.assertFalse(list.isEmpty());
+
+        list.forEach(arr -> {
+            System.out.println(arr[0] + ", " + arr[1]);
+        });
+
+    }
 }
