@@ -8,17 +8,13 @@ import lab.lhss.ecommerce.model.Order_;
 import org.junit.Assert;
 import org.junit.Test;
 
-import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Root;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.List;
 
 public class ConditionalExpressionsWithCriteria extends EntityManagerTest {
