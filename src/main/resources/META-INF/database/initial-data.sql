@@ -2,6 +2,10 @@ insert into item (id, name, price, created_date, description) values (1, 'Kindle
 insert into item (id, name, price, created_date,description) values (3, 'Camera GoPro', 1499.0, date_sub(sysdate(), interval 1 day), 'Good Gamera.');
 insert into item (id, name, price, created_date,description) values (4, 'Google Pixel', 2499.0, date_sub(sysdate(), interval 1 day), 'Good Smartphone.');
 insert into item (id, name, price, created_date,description) values (5, 'Sandwich', 3499.0, date_sub(sysdate(), interval 1 day), 'Good Sandwich');
+insert into item (id, name, price, created_date,description) values (6, 'Smart Watch', 1400.0, date_sub(sysdate(), interval 1 day), 'Galaxy Watch 4');
+insert into item (id, name, price, created_date,description) values (7, 'JBL Headset', 540.0, date_sub(sysdate(), interval 1 day), 'Headset Gamer');
+insert into item (id, name, price, created_date,description) values (9, 'Laptop', 4000.0, date_sub(sysdate(), interval 1 day), 'Samsung Laptop Gamer');
+insert into item (id, name, price, created_date,description) values (10, 'Guitar', 3000.0, date_sub(sysdate(), interval 1 day), 'Yamaha Guitar');
 
 insert into category (id,name) values (1, 'Electronics');
 insert into category (id,name) values (2, 'Book');
