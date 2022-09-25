@@ -10,7 +10,7 @@
             <property name="javax.persistence.jdbc.url"
                       value="jdbc:mysql://localhost/alga_ecommerce?createDatabaseIfNotExist=true&amp;useTimezone=true&amp;serverTimezone=UTC" />
             <property name="javax.persistence.jdbc.user" value="root" />
-            <property name="javax.persistence.jdbc.password" value="as@12as" />
+            <!--property name="javax.persistence.jdbc.password" value="as@12as" /-->
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
             <!-- Do not execute  actions on database, disabling while working with Queries to speed up exercises. -->
             <property name="javax.persistence.schema-generation.database.action" value="none"/>
