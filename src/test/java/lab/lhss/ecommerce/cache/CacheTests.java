@@ -2,6 +2,7 @@ package lab.lhss.ecommerce.cache;
 
 import lab.lhss.ecommerce.model.Order;
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -66,6 +67,23 @@ public class CacheTests {
         entityManager2.find(Order.class, 1);
         entityManager2.find(Order.class, 2);
 
+    }
+
+    @Test
+    public void verifyEntryIsCached() {
+        EntityManager entityManager1 = entityManagerFactory.createEntityManager();
+        EntityManager entityManager2 = entityManagerFactory.createEntityManager();
+
+        Cache cache = entityManagerFactory.getCache();
+
+        System.out.println("Querying from instance 1.");
+        entityManager1.createQuery("select o from Order o", Order.class).getResultList();
+
+        System.out.println("Removing Order 1 from Cache");
+        cache.evict(Order.class, 1);  // Remove Specific entity with ID from cache
+
+        Assert.assertFalse(cache.contains(Order.class, 1));
+        Assert.assertTrue(cache.contains(Order.class, 2));
     }
 
 }
