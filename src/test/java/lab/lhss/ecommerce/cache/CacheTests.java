@@ -6,10 +6,9 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import javax.persistence.Cache;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import javax.persistence.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CacheTests {
 
@@ -84,6 +83,30 @@ public class CacheTests {
 
         Assert.assertFalse(cache.contains(Order.class, 1));
         Assert.assertTrue(cache.contains(Order.class, 2));
+    }
+
+    @Test
+    public void controlCacheUsageDynamically() {
+        // javax.persistence.cache.retrieveMode CacheRetrieveMode
+        // javax.persistence.cache.storeMode CacheStoreMode
+
+        System.out.println("Querying All Orders #################################");
+        EntityManager entityManager1 = entityManagerFactory.createEntityManager();
+//        entityManager1.setProperty("javax.persistence.cache.storeMode", CacheStoreMode.BYPASS);
+        entityManager1.createQuery("select o from Order o", Order.class)
+                .setHint("javax.persistence.cache.storeMode", CacheStoreMode.USE)
+                .getResultList();
+
+        System.out.println("Querying Order with ID equals to 2 #######################");
+        EntityManager entityManager2 = entityManagerFactory.createEntityManager();
+        Map<String, Object> properties = new HashMap<>();
+//        properties.put("javax.persistence.cache.retrieveMode", CacheRetrieveMode.BYPASS);
+//        properties.put("javax.persistence.cache.storeMode", CacheStoreMode.BYPASS);
+        entityManager2.find(Order.class, 2, properties);
+
+        System.out.println("Querying All Orders AGAIN ###################################");
+        EntityManager entityManager3 = entityManagerFactory.createEntityManager();
+        entityManager3.createQuery("select o from Order o", Order.class).getResultList();
     }
 
 }

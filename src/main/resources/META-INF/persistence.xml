@@ -5,6 +5,7 @@
              version="2.2">
     <persistence-unit name="Ecommerce-PU">
         <mapping-file>META-INF/queries/item-queries.xml</mapping-file>
+        <shared-cache-mode>ALL</shared-cache-mode>
 
         <properties>
             <property name="javax.persistence.jdbc.url"
@@ -13,7 +14,6 @@
             <!--property name="javax.persistence.jdbc.password" value="as@12as" /-->
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
 
-            <property name="javax.persistence.sharedCache.mode" value="ALL" />
 
             <!-- Do not execute  actions on database, disabling while working with Queries to speed up exercises. -->
             <property name="javax.persistence.schema-generation.database.action" value="none"/>
